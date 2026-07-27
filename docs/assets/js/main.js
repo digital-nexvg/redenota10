@@ -135,7 +135,7 @@
             .slice(0, 6)
             .map(
               (unit, index) =>
-                `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais proximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
+                `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
             )
             .join('');
 
