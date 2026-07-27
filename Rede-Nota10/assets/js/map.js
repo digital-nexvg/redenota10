@@ -12,6 +12,7 @@
   let map;
   const markerMap = new Map();
   let unitsCache = [];
+  let originMarker = null;
 
   const calculateDistanceKm = (fromLat, fromLng, toLat, toLng) => {
     const toRad = (value) => (value * Math.PI) / 180;
@@ -34,7 +35,8 @@
         if (!results.length) return null;
         return {
           lat: Number(results[0].lat),
-          lng: Number(results[0].lon)
+          lng: Number(results[0].lon),
+          displayName: results[0].display_name
         };
       })
       .catch(() => null);
@@ -130,8 +132,27 @@
       nearestMarker.openPopup();
     }
 
+    if (map) {
+      if (originMarker) map.removeLayer(originMarker);
+      originMarker = L.marker([origin.lat, origin.lng]).addTo(map);
+      originMarker.bindPopup(`
+        <strong>Seu endereço informado</strong><br>
+        ${origin.displayName || rawAddress}
+      `);
+    }
+
+    const destination = `${nearest.lat},${nearest.lng}`;
+    const originPoint = `${origin.lat},${origin.lng}`;
+    const googleRoute = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originPoint)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+    const wazeRoute = `https://www.waze.com/ul?ll=${nearest.lat}%2C${nearest.lng}&navigate=yes`;
+
     if (nearestResult) {
-      nearestResult.textContent = `Posto mais próximo: ${nearest.nome} (aprox. ${shortestDistance.toFixed(1)} km).`;
+      nearestResult.innerHTML = `
+        <strong>Posto mais próximo:</strong> ${nearest.nome} (aprox. ${shortestDistance.toFixed(1)} km).<br>
+        <strong>Endereço:</strong> ${nearest.endereco}<br>
+        <a href="${googleRoute}" target="_blank" rel="noopener noreferrer">Traçar rota no Google Maps</a> |
+        <a href="${wazeRoute}" target="_blank" rel="noopener noreferrer">Abrir no Waze</a>
+      `;
     }
   };
 
@@ -147,13 +168,14 @@
 
     units.forEach((unit) => {
       const marker = L.marker([unit.lat, unit.lng]).addTo(map);
+      const googleRoute = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${unit.lat},${unit.lng}`)}`;
+      const wazeRoute = `https://www.waze.com/ul?ll=${unit.lat}%2C${unit.lng}&navigate=yes`;
       marker.bindPopup(`
         <strong>${unit.nome}</strong><br>
         ${unit.endereco}<br>
         ${unit.telefone}<br><br>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-          `${unit.lat},${unit.lng}`
-        )}" target="_blank" rel="noopener noreferrer">Como chegar</a>
+        <a href="${googleRoute}" target="_blank" rel="noopener noreferrer">Rota no Google Maps</a><br>
+        <a href="${wazeRoute}" target="_blank" rel="noopener noreferrer">Abrir no Waze</a>
       `);
       markerMap.set(unit.id, marker);
     });
