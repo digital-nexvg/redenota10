@@ -28,7 +28,7 @@
       .join('');
 
     if (!units.length) {
-      listElement.innerHTML = '<article class="unit-item"><p>Nenhuma unidade cadastrada ainda para o Rio de Janeiro. Envie os endereços para ativação.</p></article>';
+      listElement.innerHTML = '<article class="unit-item"><p>Nenhuma unidade encontrada com os filtros atuais.</p></article>';
     }
 
     listElement.querySelectorAll('[data-focus-map]').forEach((button) => {
