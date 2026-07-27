@@ -48,7 +48,7 @@
     listElement.innerHTML = units
       .map(
         (unit, index) => `
-          <article class="unit-item reveal" data-unit-id="${unit.id}">
+          <article class="unit-item" data-unit-id="${unit.id}">
             <h3>${unit.nome}</h3>
             <p>${unit.endereco}</p>
             <p><strong>Telefone:</strong> ${unit.telefone}</p>
