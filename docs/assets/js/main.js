@@ -108,12 +108,12 @@
             .slice(0, 6)
             .map(
               (unit) =>
-                `<li><span><strong>${unit.nome}</strong><br>${unit.cidade}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
+                `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
             )
             .join('');
 
           if (!items.length) {
-            quickResults.innerHTML = '<li>Nenhuma unidade encontrada para esta cidade.</li>';
+            quickResults.innerHTML = '<li>Nenhuma unidade encontrada para este bairro.</li>';
           }
         };
 
@@ -123,7 +123,11 @@
           const term = quickCityInput.value.trim().toLowerCase();
           const filtered = !term
             ? units
-            : units.filter((unit) => unit.cidade.toLowerCase().includes(term));
+            : units.filter(
+                (unit) =>
+                  unit.endereco.toLowerCase().includes(term) ||
+                  unit.cidade.toLowerCase().includes(term)
+              );
           render(filtered);
         });
       })
