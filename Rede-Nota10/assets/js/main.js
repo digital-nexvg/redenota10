@@ -103,12 +103,39 @@
     fetch(`${pathPrefix}/data/postos.json`)
       .then((response) => response.json())
       .then((units) => {
-        const render = (items) => {
+        const calculateDistanceKm = (fromLat, fromLng, toLat, toLng) => {
+          const toRad = (value) => (value * Math.PI) / 180;
+          const earthRadiusKm = 6371;
+          const deltaLat = toRad(toLat - fromLat);
+          const deltaLng = toRad(toLng - fromLng);
+
+          const a =
+            Math.sin(deltaLat / 2) ** 2 +
+            Math.cos(toRad(fromLat)) * Math.cos(toRad(toLat)) * Math.sin(deltaLng / 2) ** 2;
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          return earthRadiusKm * c;
+        };
+
+        const geocodeAddress = (term) => {
+          const query = encodeURIComponent(`${term}, Rio de Janeiro, Brasil`);
+          return fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${query}`)
+            .then((geoResponse) => geoResponse.json())
+            .then((results) => {
+              if (!results.length) return null;
+              return {
+                lat: Number(results[0].lat),
+                lng: Number(results[0].lon)
+              };
+            })
+            .catch(() => null);
+        };
+
+        const render = (items, nearestDistanceKm = null) => {
           quickResults.innerHTML = items
             .slice(0, 6)
             .map(
-              (unit) =>
-                `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
+              (unit, index) =>
+                `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais proximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
             )
             .join('');
 
@@ -119,16 +146,59 @@
 
         render(units);
 
+        let searchTimer = null;
+        let searchToken = 0;
+
         quickCityInput.addEventListener('input', () => {
           const term = quickCityInput.value.trim().toLowerCase();
-          const filtered = !term
-            ? units
-            : units.filter(
+
+          if (searchTimer) clearTimeout(searchTimer);
+
+          if (!term) {
+            render(units);
+            return;
+          }
+
+          searchTimer = setTimeout(async () => {
+            const currentToken = ++searchToken;
+
+            if (term.length < 3) {
+              const filtered = units.filter(
                 (unit) =>
                   unit.endereco.toLowerCase().includes(term) ||
                   unit.cidade.toLowerCase().includes(term)
               );
-          render(filtered);
+              render(filtered);
+              return;
+            }
+
+            const origin = await geocodeAddress(term);
+
+            if (currentToken !== searchToken) return;
+
+            if (!origin) {
+              const fallback = units.filter(
+                (unit) =>
+                  unit.endereco.toLowerCase().includes(term) ||
+                  unit.cidade.toLowerCase().includes(term)
+              );
+              render(fallback);
+              return;
+            }
+
+            let nearest = units[0];
+            let shortestDistance = calculateDistanceKm(origin.lat, origin.lng, nearest.lat, nearest.lng);
+
+            units.slice(1).forEach((unit) => {
+              const distance = calculateDistanceKm(origin.lat, origin.lng, unit.lat, unit.lng);
+              if (distance < shortestDistance) {
+                shortestDistance = distance;
+                nearest = unit;
+              }
+            });
+
+            render([nearest], shortestDistance);
+          }, 450);
         });
       })
       .catch(() => {
