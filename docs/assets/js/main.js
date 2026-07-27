@@ -162,16 +162,6 @@
           searchTimer = setTimeout(async () => {
             const currentToken = ++searchToken;
 
-            if (term.length < 3) {
-              const filtered = units.filter(
-                (unit) =>
-                  unit.endereco.toLowerCase().includes(term) ||
-                  unit.cidade.toLowerCase().includes(term)
-              );
-              render(filtered);
-              return;
-            }
-
             const origin = await geocodeAddress(term);
 
             if (currentToken !== searchToken) return;
