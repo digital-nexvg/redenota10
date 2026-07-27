@@ -58,8 +58,8 @@
           <div class="search-shell reveal">
             <div class="form-grid">
               <div class="form-field">
-                <label for="city-filter">Buscar por cidade</label>
-                <input id="city-filter" type="search" placeholder="Ex.: Rio de Janeiro" data-city-filter>
+                <label for="address-input">Digite o endereço onde você está</label>
+                <input id="address-input" type="search" placeholder="Ex.: Rua das Laranjeiras, 120 - Rio de Janeiro" data-address-input>
               </div>
               <div class="form-field">
                 <label for="service-filter">Filtrar por serviço</label>
@@ -70,6 +70,10 @@
                   <option value="lavagem">Lavagem</option>
                   <option value="calibragem">Calibragem</option>
                 </select>
+              </div>
+              <div class="form-field full">
+                <button class="btn btn-primary" type="button" data-find-nearest>Encontrar posto mais próximo</button>
+                <p data-nearest-result></p>
               </div>
             </div>
           </div>
