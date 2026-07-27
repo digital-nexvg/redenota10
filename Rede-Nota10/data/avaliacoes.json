@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "nome": "Mariana Costa",
+    "cidade": "Campinho - Rio de Janeiro",
+    "foto": "assets/images/avaliacoes/pessoa-1.svg",
+    "comentario": "Sempre abasteço na Nota 10 pela confiança. Combustível de qualidade e atendimento excelente."
+  },
+  {
+    "id": 2,
+    "nome": "Carlos Henrique",
+    "cidade": "Retiro Sao Joaquim - Itaborai",
+    "foto": "assets/images/avaliacoes/pessoa-2.svg",
+    "comentario": "Equipe muito educada e rápida. A conveniência é organizada e com ótimos produtos."
+  },
+  {
+    "id": 3,
+    "nome": "Patrícia Almeida",
+    "cidade": "Campo Grande - Rio de Janeiro",
+    "foto": "assets/images/avaliacoes/pessoa-3.svg",
+    "comentario": "Gostei da estrutura moderna e da segurança no atendimento. Rede realmente diferenciada."
+  },
+  {
+    "id": 4,
+    "nome": "João Felipe",
+    "cidade": "Barra da Tijuca - Rio de Janeiro",
+    "foto": "assets/images/avaliacoes/pessoa-4.svg",
+    "comentario": "A troca de óleo foi rápida e transparente. Atendimento premium do início ao fim."
+  }
+]

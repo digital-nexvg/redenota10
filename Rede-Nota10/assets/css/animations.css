@@ -1,0 +1,46 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes softPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero h1,
+.hero p,
+.hero .hero-actions {
+  animation: riseIn 700ms ease both;
+}
+
+.hero p {
+  animation-delay: 130ms;
+}
+
+.hero .hero-actions {
+  animation-delay: 220ms;
+}
+
+.promo-slide.active {
+  animation: softPulse 5s ease;
+}

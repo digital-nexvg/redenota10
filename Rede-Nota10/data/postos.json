@@ -1,0 +1,62 @@
+[
+	{
+		"id": 1,
+		"nome": "Posto JOINHA",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Rua Candido Benicio, 687 - Campinho, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"lat": -22.9106942,
+		"lng": -43.3602137,
+		"servicos": []
+	},
+	{
+		"id": 2,
+		"nome": "VIA GÁS",
+		"cidade": "Itaboraí",
+		"endereco": "Av 22 de Maio, S/N, LT1, QD 88 - Retiro São Joaquim, Itaboraí - RJ",
+		"telefone": "Não informado",
+		"lat": -22.7544541,
+		"lng": -42.8905956,
+		"servicos": []
+	},
+	{
+		"id": 3,
+		"nome": "Auto Posto Cremoneze",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Estrada do Mendanha, 4240 - Campo Grande, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"lat": -22.8625506,
+		"lng": -43.5411908,
+		"servicos": []
+	},
+	{
+		"id": 4,
+		"nome": "Posto Mega Engenho Novo",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Rua Souza Barros, 636 - Engenho Novo, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"lat": -22.9000102,
+		"lng": -43.2645151,
+		"servicos": []
+	},
+	{
+		"id": 5,
+		"nome": "Posto de Gasolina Nota 10 do Grajau",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Rua Barao do Bom Retiro, 1864 - Grajau, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"lat": -22.9195915,
+		"lng": -43.2613571,
+		"servicos": []
+	},
+	{
+		"id": 6,
+		"nome": "Auto Posto Senna",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Av Ayrton Senna, S/N - Canteiro Central, Barra da Tijuca, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"lat": -22.9986834,
+		"lng": -43.3639997,
+		"servicos": []
+	}
+]
