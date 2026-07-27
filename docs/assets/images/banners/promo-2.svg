@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#123b2a"/>
+  <rect x="80" y="140" width="1120" height="450" rx="26" fill="#1ea55b" opacity="0.45"/>
+  <text x="150" y="300" font-family="Sora, sans-serif" font-size="80" fill="#fff">Programa Fidelidade</text>
+  <text x="150" y="380" font-family="DM Sans, sans-serif" font-size="45" fill="#fff">Prepare-se para benefícios exclusivos.</text>
+</svg>

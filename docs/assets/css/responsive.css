@@ -1,0 +1,131 @@
+@media (min-width: 680px) {
+  .differentials-grid,
+  .fuels-grid,
+  .cards-grid,
+  .contact-grid,
+  .values-grid,
+  .timeline,
+  .units-list,
+  .reviews-grid,
+  .quick-links,
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-grid .full {
+    grid-column: 1 / -1;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .site-header .menu-toggle {
+    display: none;
+  }
+
+  .main-nav {
+    position: static;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .main-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0;
+  }
+
+  .main-nav a {
+    padding: 0.65rem 0.85rem;
+    color: #fff;
+  }
+
+  .site-header.scrolled .main-nav a,
+  body.inner-page .site-header .main-nav a {
+    color: var(--color-text);
+  }
+
+  .main-nav .nav-cta a {
+    color: #fff !important;
+    background: linear-gradient(130deg, var(--color-secondary), #ff9e58);
+    border-radius: 999px;
+    padding-inline: 1rem;
+  }
+
+  .hero .hero-content {
+    max-width: 70%;
+  }
+
+  .differentials-grid,
+  .fuels-grid,
+  .cards-grid,
+  .units-list,
+  .contact-grid,
+  .reviews-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+  }
+
+  .cta-band {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .quick-links {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero .hero-content {
+    max-width: 58%;
+  }
+
+  .section {
+    padding: 5.5rem 0;
+  }
+}
+
+@media (max-width: 959px) {
+  .site-header.nav-open .menu-toggle span {
+    background: transparent;
+  }
+
+  .site-header.nav-open .menu-toggle span::before {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  .site-header.nav-open .menu-toggle span::after {
+    transform: translateY(0) rotate(-45deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero video {
+    display: none;
+  }
+
+  .hero .hero-fallback {
+    display: block;
+  }
+
+  .inner-hero {
+    padding-top: 4.3rem;
+  }
+}
