@@ -52,10 +52,11 @@
           <div class="section-head reveal">
             <span class="eyebrow">Banco de talentos</span>
             <h2>Envie seu currículo</h2>
-            <p>Formulário preparado para futura integração com backend e painel de recrutamento.</p>
+            <p>Cadastre seus dados para participar do banco de talentos da Rede Nota 10.</p>
           </div>
 
-          <form class="search-shell reveal" action="https://formspree.io/f/xbdnwjor" method="post" enctype="multipart/form-data">
+          <form class="search-shell reveal" action="https://formspree.io/f/xbdnwjor" method="post">
+            <input id="form-next-url" type="hidden" name="_next" value="https://www.redenota10.com.br/pages/curriculo-enviado.html">
             <div class="form-grid">
               <div class="form-field">
                 <label for="nome">Nome</label>
@@ -86,10 +87,6 @@
               <div class="form-field full">
                 <label for="mensagem">Mensagem</label>
                 <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre seu perfil profissional"></textarea>
-              </div>
-              <div class="form-field full">
-                <label for="curriculo">Upload de currículo (PDF)</label>
-                <input id="curriculo" name="curriculo" type="file" accept=".pdf" required>
               </div>
               <div class="form-field full checkbox-row">
                 <input id="lgpd" name="lgpd" type="checkbox" required>
@@ -147,5 +144,12 @@
     <script src="../assets/js/menu.js" defer></script>
     <script src="../assets/js/main.js" defer></script>
     <script src="../assets/js/animations.js" defer></script>
+    <script>
+      (function () {
+        var nextInput = document.getElementById("form-next-url");
+        if (!nextInput) return;
+        nextInput.value = new URL("curriculo-enviado.html", window.location.href).href;
+      })();
+    </script>
   </body>
 </html>
