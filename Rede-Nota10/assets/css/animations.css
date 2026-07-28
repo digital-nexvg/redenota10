@@ -15,30 +15,41 @@
   }
 }
 
-@keyframes riseIn {
+@keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateX(46px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 .hero h1,
 .hero p,
 .hero .hero-actions {
-  animation: riseIn 700ms ease both;
+  animation: slideInRight 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 1s;
 }
 
 .hero p {
-  animation-delay: 130ms;
+  animation-delay: 1.13s;
 }
 
 .hero .hero-actions {
-  animation-delay: 220ms;
+  animation-delay: 1.28s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1,
+  .hero p,
+  .hero .hero-actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .promo-slide.active {
