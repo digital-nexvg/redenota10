@@ -55,7 +55,7 @@
             <p>Cadastre seus dados para participar do banco de talentos da Rede Nota 10.</p>
           </div>
 
-          <form class="search-shell reveal" action="https://formspree.io/f/xbdnwjor" method="post">
+          <form id="careers-form" class="search-shell reveal" action="https://formspree.io/f/xbdnwjor" method="post">
             <input id="form-next-url" type="hidden" name="_next" value="https://www.redenota10.com.br/pages/curriculo-enviado.html">
             <div class="form-grid">
               <div class="form-field">
@@ -147,8 +147,43 @@
     <script>
       (function () {
         var nextInput = document.getElementById("form-next-url");
-        if (!nextInput) return;
-        nextInput.value = new URL("curriculo-enviado.html", window.location.href).href;
+        var careersForm = document.getElementById("careers-form");
+
+        if (!nextInput || !careersForm) return;
+
+        var redirectUrl = new URL("curriculo-enviado.html", window.location.href).href;
+        nextInput.value = redirectUrl;
+
+        careersForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var submitButton = careersForm.querySelector("button[type='submit']");
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Enviando...";
+          }
+
+          fetch(careersForm.action, {
+            method: "POST",
+            body: new FormData(careersForm),
+            headers: {
+              Accept: "application/json"
+            }
+          })
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error("Falha no envio do formulário.");
+              }
+              window.location.href = redirectUrl;
+            })
+            .catch(function () {
+              if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = "Enviar currículo";
+              }
+              alert("Não foi possível enviar agora. Tente novamente em alguns instantes.");
+            });
+        });
       })();
     </script>
   </body>
