@@ -144,7 +144,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 96px;
+  min-height: 104px;
   gap: 1rem;
 }
 
@@ -155,13 +155,13 @@ ul {
 }
 
 .site-header .logo-link img {
-  height: clamp(72px, 10vw, 94px);
+  height: clamp(82px, 11.5vw, 112px);
   width: auto;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 18px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 255, 0.96));
-  border: 1px solid rgba(90, 45, 189, 0.22);
-  padding: 0.2rem 0.35rem;
+  border: 1px solid rgba(90, 45, 189, 0.24);
+  padding: 0.18rem 0.5rem;
   box-shadow: 0 10px 24px rgba(16, 24, 40, 0.12), 0 0 0 1px rgba(255, 122, 26, 0.12) inset;
 }
 

@@ -4,9 +4,29 @@
 
   const preloader = document.querySelector('[data-preloader]');
   const backToTopBtn = document.querySelector('[data-back-to-top]');
+  const heroSection = document.querySelector('.hero');
   const yearEl = document.querySelector('[data-current-year]');
   const counterEls = document.querySelectorAll('[data-counter]');
   const promoSlides = document.querySelectorAll('[data-promo-slide]');
+
+  const hideBackToTopOnPage = /\/pages\/(trabalhe-conosco|contato)\.html$/i.test(window.location.pathname);
+
+  if (backToTopBtn && hideBackToTopOnPage) {
+    backToTopBtn.dataset.disabled = 'true';
+    backToTopBtn.classList.remove('visible');
+  }
+
+  if (backToTopBtn && heroSection) {
+    const heroVisibilityObserver = new IntersectionObserver(
+      (entries) => {
+        const heroVisible = entries.some((entry) => entry.isIntersecting);
+        backToTopBtn.classList.toggle('hidden-in-hero', heroVisible);
+      },
+      { threshold: 0.15 }
+    );
+
+    heroVisibilityObserver.observe(heroSection);
+  }
 
   window.addEventListener('load', () => {
     if (preloader) preloader.classList.add('hidden');
@@ -27,7 +47,10 @@
 
   const toggleBackToTop = () => {
     if (!backToTopBtn) return;
-    backToTopBtn.classList.toggle('visible', window.scrollY > 430);
+    const isDisabled = backToTopBtn.dataset.disabled === 'true';
+    const hiddenInHero = backToTopBtn.classList.contains('hidden-in-hero');
+    const shouldShow = window.scrollY > 430 && !isDisabled && !hiddenInHero;
+    backToTopBtn.classList.toggle('visible', shouldShow);
   };
 
   toggleBackToTop();
