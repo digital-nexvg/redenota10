@@ -99,9 +99,14 @@ ul {
 .btn {
   border: none;
   border-radius: 999px;
-  padding: 0.85rem 1.35rem;
+  padding: 0.72rem 1.1rem;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: transform var(--transition), background-color var(--transition), color var(--transition), box-shadow var(--transition);
 }
@@ -287,7 +292,7 @@ body.inner-page .site-header .menu-toggle span {
 
 .hero .hero-fallback {
   display: block;
-  background-size: 74% auto;
+  background-size: 1284px 728px;
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -325,7 +330,7 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .hero p {
-  margin: 1rem 0 2rem;
+  margin: 0.55rem 0 1.15rem;
   max-width: 42ch;
   color: #1e293b;
 }
@@ -772,6 +777,7 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .whatsapp-float {
+  display: none;
   bottom: 4.6rem;
   background: #22c35e;
   color: #fff;
