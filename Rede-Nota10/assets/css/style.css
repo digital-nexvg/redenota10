@@ -144,7 +144,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 88px;
+  min-height: 96px;
   gap: 1rem;
 }
 
@@ -155,7 +155,7 @@ ul {
 }
 
 .site-header .logo-link img {
-  height: clamp(60px, 8.5vw, 76px);
+  height: clamp(72px, 10vw, 94px);
   width: auto;
   object-fit: contain;
   border-radius: 12px;
