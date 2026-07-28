@@ -121,7 +121,8 @@
 
 @media (max-width: 760px) {
   .hero .hero-fallback {
-    background-size: 90% auto;
+    background-size: 74% auto;
+    background-position: center center;
   }
 
   .inner-hero {
