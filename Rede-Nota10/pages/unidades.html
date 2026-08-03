@@ -99,6 +99,53 @@
           <div class="units-list" data-units-list></div>
         </div>
       </section>
+
+      <div class="unit-modal" data-unit-modal aria-hidden="true">
+        <div class="unit-modal__backdrop" data-close-unit-modal></div>
+        <div class="unit-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="unit-modal-title">
+          <button class="unit-modal__close" type="button" data-close-unit-modal aria-label="Fechar modal">×</button>
+          <div class="unit-modal__layout">
+            <figure class="unit-modal__hero">
+              <img data-unit-modal-main-image alt="Imagem principal da unidade">
+            </figure>
+
+            <div class="unit-modal__body">
+              <span class="eyebrow" data-unit-modal-city></span>
+              <h2 id="unit-modal-title" data-unit-modal-title></h2>
+              <p data-unit-modal-description></p>
+
+              <dl class="unit-modal__info">
+                <div>
+                  <dt>Endereço</dt>
+                  <dd data-unit-modal-address></dd>
+                </div>
+                <div>
+                  <dt>Telefone</dt>
+                  <dd data-unit-modal-phone></dd>
+                </div>
+                <div>
+                  <dt>Horário</dt>
+                  <dd data-unit-modal-hours></dd>
+                </div>
+              </dl>
+
+              <div>
+                <h3>Serviços</h3>
+                <div class="unit-modal__chips" data-unit-modal-services></div>
+              </div>
+
+              <div>
+                <h3>Mais fotos</h3>
+                <div class="unit-modal__gallery" data-unit-modal-gallery></div>
+              </div>
+
+              <div class="unit-modal__actions">
+                <button class="btn btn-primary" type="button" data-unit-modal-focus-map>Ver no mapa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="site-footer">
@@ -142,10 +189,10 @@
     <button class="back-to-top" data-back-to-top aria-label="Voltar ao topo">↑</button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="../assets/js/menu.js" defer></script>
-    <script src="../assets/js/main.js" defer></script>
-    <script src="../assets/js/map.js" defer></script>
-    <script src="../assets/js/animations.js" defer></script>
+    <script src="../assets/js/menu.js?v=20260803k" defer></script>
+    <script src="../assets/js/main.js?v=20260803k" defer></script>
+    <script src="../assets/js/map.js?v=20260803k" defer></script>
+    <script src="../assets/js/animations.js?v=20260803k" defer></script>
   </body>
 </html>
 

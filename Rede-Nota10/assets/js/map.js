@@ -5,6 +5,18 @@
   const serviceFilterSelect = document.querySelector('[data-service-filter]');
   const findNearestButton = document.querySelector('[data-find-nearest]');
   const nearestResult = document.querySelector('[data-nearest-result]');
+  const unitModal = document.querySelector('[data-unit-modal]');
+  const unitModalTitle = document.querySelector('[data-unit-modal-title]');
+  const unitModalCity = document.querySelector('[data-unit-modal-city]');
+  const unitModalDescription = document.querySelector('[data-unit-modal-description]');
+  const unitModalAddress = document.querySelector('[data-unit-modal-address]');
+  const unitModalPhone = document.querySelector('[data-unit-modal-phone]');
+  const unitModalHours = document.querySelector('[data-unit-modal-hours]');
+  const unitModalGallery = document.querySelector('[data-unit-modal-gallery]');
+  const unitModalServices = document.querySelector('[data-unit-modal-services]');
+  const unitModalMainImage = document.querySelector('[data-unit-modal-main-image]');
+  const unitModalFocusMapButton = document.querySelector('[data-unit-modal-focus-map]');
+  const unitModalCloseTriggers = document.querySelectorAll('[data-close-unit-modal]');
 
   const isInnerPage = document.body.classList.contains('inner-page');
   const pathPrefix = isInnerPage ? '..' : '.';
@@ -12,7 +24,128 @@
   let map;
   const markerMap = new Map();
   let unitsCache = [];
+  let manualPhotosCache = [];
   let originMarker = null;
+  let activeModalUnit = null;
+
+  const resolveAssetPath = (assetPath) => {
+    if (!assetPath) return '';
+    if (/^(https?:)?\/\//i.test(assetPath) || assetPath.startsWith('/')) return assetPath;
+    return `${pathPrefix}/${assetPath.replace(/^\.\/?/, '')}`;
+  };
+
+  const applyImageFallback = (imageElement) => {
+    if (!imageElement) return;
+    imageElement.addEventListener(
+      'error',
+      () => {
+        const fallback = `${pathPrefix}/assets/images/banners/hero-fallback.svg`;
+        if (imageElement.dataset.fallbackApplied === 'true') return;
+        imageElement.dataset.fallbackApplied = 'true';
+        imageElement.src = fallback;
+      },
+      { once: true }
+    );
+  };
+
+  const loadManualPhotos = () =>
+    fetch(`${pathPrefix}/data/fotos-modal.json`)
+      .then((response) => response.json())
+      .then((entries) => {
+        manualPhotosCache = Array.isArray(entries) ? entries : [];
+      })
+      .catch(() => {
+        manualPhotosCache = [];
+      });
+
+  const formatPublicAddress = (address) => {
+    if (!address) return 'Endereço não informado';
+
+    const cleanAddress = String(address).replace(/\s+/g, ' ').trim();
+
+    const withoutState = cleanAddress.replace(/\s*-\s*RJ$/i, '').trim();
+    const withoutCity = withoutState.replace(/,\s*[^,]+$/i, '').trim();
+    const neighborhood = withoutCity.split(' - ').pop()?.trim();
+
+    if (neighborhood) {
+      return `${neighborhood} - RJ`;
+    }
+
+    return cleanAddress;
+  };
+
+  const closeUnitModal = () => {
+    if (!unitModal) return;
+    unitModal.classList.remove('is-open');
+    unitModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    activeModalUnit = null;
+  };
+
+  const openUnitModal = (unit) => {
+    if (!unitModal) return;
+
+    activeModalUnit = unit;
+    const manualEntry = manualPhotosCache.find((entry) => entry.slug === unit.slug) || null;
+    const unitImages = [
+      ...(manualEntry?.imagemPrincipal ? [manualEntry.imagemPrincipal] : []),
+      ...(Array.isArray(manualEntry?.galeria) ? manualEntry.galeria : []),
+      unit.imagemPrincipal,
+      ...(Array.isArray(unit.galeria) ? unit.galeria : [])
+    ]
+      .filter(Boolean)
+      .map((imagePath) => resolveAssetPath(imagePath));
+
+    if (unitModalTitle) unitModalTitle.textContent = unit.nome;
+    if (unitModalCity) unitModalCity.textContent = unit.cidade || 'Unidade';
+    if (unitModalDescription) unitModalDescription.textContent = unit.descricao || 'Adicione aqui a descrição desta unidade.';
+    if (unitModalAddress) unitModalAddress.textContent = unit.endereco || 'Endereço não informado';
+    if (unitModalPhone) unitModalPhone.textContent = unit.telefone || 'Não informado';
+    if (unitModalHours) unitModalHours.textContent = unit.horario || 'A definir';
+
+    if (unitModalMainImage) {
+      unitModalMainImage.dataset.fallbackApplied = 'false';
+      unitModalMainImage.alt = `Foto principal de ${unit.nome}`;
+      unitModalMainImage.src = unitImages[0] || `${pathPrefix}/assets/images/banners/hero-fallback.svg`;
+      applyImageFallback(unitModalMainImage);
+    }
+
+    if (unitModalGallery) {
+      unitModalGallery.innerHTML = unitImages
+        .map((imagePath, index) => {
+          return `
+            <button class="unit-modal__gallery-item" type="button" data-gallery-index="${index}">
+              <img src="${imagePath}" alt="Foto ${index + 1} de ${unit.nome}">
+            </button>
+          `;
+        })
+        .join('');
+
+      unitModalGallery.querySelectorAll('img').forEach((img) => applyImageFallback(img));
+    }
+
+    if (unitModalServices) {
+      const services = Array.isArray(unit.servicos) ? unit.servicos : [];
+      unitModalServices.innerHTML = services.length
+        ? services.map((service) => `<span class="unit-modal__chip">${service}</span>`).join('')
+        : '<span class="unit-modal__chip unit-modal__chip--empty">Serviços a cadastrar</span>';
+    }
+
+    if (unitModalFocusMapButton) {
+      unitModalFocusMapButton.onclick = () => {
+        const marker = markerMap.get(unit.id);
+        if (!marker || !map) return;
+        map.setView(marker.getLatLng(), 14, { animate: true });
+        marker.openPopup();
+        closeUnitModal();
+      };
+    }
+
+    unitModal.classList.add('is-open');
+    unitModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    unitModal.querySelector('.unit-modal__close')?.focus();
+  };
 
   const calculateDistanceKm = (fromLat, fromLng, toLat, toLng) => {
     const toRad = (value) => (value * Math.PI) / 180;
@@ -49,10 +182,16 @@
       .map(
         (unit, index) => `
           <article class="unit-item" data-unit-id="${unit.id}">
-            <h3>${unit.nome}</h3>
-            <p>${unit.endereco}</p>
-            <p><strong>Telefone:</strong> ${unit.telefone}</p>
-            <button class="btn btn-primary" data-focus-map="${unit.id}">Ver no mapa</button>
+            <img class="unit-thumb" src="${resolveAssetPath(unit.imagemPrincipal) || `${pathPrefix}/assets/images/banners/hero-fallback.svg`}" alt="Foto principal de ${unit.nome}">
+            <div class="unit-item__body">
+              <h3>${unit.nome}</h3>
+              <p>${formatPublicAddress(unit.endereco)}</p>
+              <p><strong>Telefone:</strong> ${unit.telefone}</p>
+              <div class="unit-item__actions">
+                <button class="btn btn-secondary" data-open-unit-modal="${unit.id}">Ver mais</button>
+                <button class="btn btn-primary" data-focus-map="${unit.id}">Ver no mapa</button>
+              </div>
+            </div>
           </article>
         `
       )
@@ -69,6 +208,15 @@
         if (!marker || !map) return;
         map.setView(marker.getLatLng(), 14, { animate: true });
         marker.openPopup();
+      });
+    });
+
+    listElement.querySelectorAll('[data-open-unit-modal]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = Number(button.dataset.openUnitModal);
+        const unit = unitsCache.find((item) => item.id === id);
+        if (!unit) return;
+        openUnitModal(unit);
       });
     });
   };
@@ -149,7 +297,7 @@
     if (nearestResult) {
       nearestResult.innerHTML = `
         <strong>Posto mais próximo:</strong> ${nearest.nome} (aprox. ${shortestDistance.toFixed(1)} km).<br>
-        <strong>Endereço:</strong> ${nearest.endereco}<br>
+        <strong>Endereço:</strong> ${formatPublicAddress(nearest.endereco)}<br>
         <a href="${googleRoute}" target="_blank" rel="noopener noreferrer">Traçar rota no Google Maps</a> |
         <a href="${wazeRoute}" target="_blank" rel="noopener noreferrer">Abrir no Waze</a>
       `;
@@ -172,7 +320,7 @@
       const wazeRoute = `https://www.waze.com/ul?ll=${unit.lat}%2C${unit.lng}&navigate=yes`;
       marker.bindPopup(`
         <strong>${unit.nome}</strong><br>
-        ${unit.endereco}<br>
+        ${formatPublicAddress(unit.endereco)}<br>
         ${unit.telefone}<br><br>
         <a href="${googleRoute}" target="_blank" rel="noopener noreferrer">Rota no Google Maps</a><br>
         <a href="${wazeRoute}" target="_blank" rel="noopener noreferrer">Abrir no Waze</a>
@@ -185,6 +333,7 @@
     .then((response) => response.json())
     .then((units) => {
       unitsCache = units;
+      loadManualPhotos();
       setupMap(units);
       renderUnitList(units);
 
@@ -202,4 +351,14 @@
         listElement.innerHTML = '<article class="unit-item"><p>Não foi possível carregar as unidades agora.</p></article>';
       }
     });
+
+  unitModalCloseTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', closeUnitModal);
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && unitModal?.classList.contains('is-open')) {
+      closeUnitModal();
+    }
+  });
 })();

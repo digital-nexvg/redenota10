@@ -8,6 +8,27 @@
   const yearEl = document.querySelector('[data-current-year]');
   const counterEls = document.querySelectorAll('[data-counter]');
   const promoSlides = document.querySelectorAll('[data-promo-slide]');
+  const homeUnitsList = document.querySelector('[data-home-units-list]');
+  const unitModal = document.querySelector('[data-unit-modal]');
+  const unitModalTitle = document.querySelector('[data-unit-modal-title]');
+  const unitModalCity = document.querySelector('[data-unit-modal-city]');
+  const unitModalDescription = document.querySelector('[data-unit-modal-description]');
+  const unitModalAddress = document.querySelector('[data-unit-modal-address]');
+  const unitModalPhone = document.querySelector('[data-unit-modal-phone]');
+  const unitModalHours = document.querySelector('[data-unit-modal-hours]');
+  const unitModalGallery = document.querySelector('[data-unit-modal-gallery]');
+  const unitModalServices = document.querySelector('[data-unit-modal-services]');
+  const unitModalMainImage = document.querySelector('[data-unit-modal-main-image]');
+  const unitModalPrevButton = document.querySelector('[data-unit-modal-prev]');
+  const unitModalNextButton = document.querySelector('[data-unit-modal-next]');
+  const unitModalCounter = document.querySelector('[data-unit-modal-counter]');
+  const unitModalFocusMapButton = document.querySelector('[data-unit-modal-focus-map]');
+  const unitModalCloseTriggers = document.querySelectorAll('[data-close-unit-modal]');
+  let unitsCache = [];
+  let manualPhotosCache = [];
+  let activeModalUnit = null;
+  let activeModalImages = [];
+  let activeModalImageIndex = 0;
 
   const hideBackToTopOnPage = /\/pages\/(trabalhe-conosco|contato)\.html$/i.test(window.location.pathname);
 
@@ -103,6 +124,248 @@
     }, 5000);
   }
 
+  const resolveAssetPath = (assetPath) => {
+    if (!assetPath) return '';
+    if (/^(https?:)?\/\//i.test(assetPath) || assetPath.startsWith('/')) return assetPath;
+    return `${pathPrefix}/${assetPath.replace(/^\.\/?/, '')}`;
+  };
+
+  const applyImageFallback = (imageElement) => {
+    if (!imageElement) return;
+    imageElement.addEventListener(
+      'error',
+      () => {
+        if (imageElement.dataset.fallbackApplied === 'true') return;
+        imageElement.dataset.fallbackApplied = 'true';
+        imageElement.src = `${pathPrefix}/assets/images/banners/hero-fallback.svg`;
+      },
+      { once: true }
+    );
+  };
+
+  const loadManualPhotos = () =>
+    fetch(`${pathPrefix}/data/fotos-modal.json`)
+      .then((response) => response.json())
+      .then((entries) => {
+        manualPhotosCache = Array.isArray(entries) ? entries : [];
+      })
+      .catch(() => {
+        manualPhotosCache = [];
+      });
+
+  const formatPublicAddress = (address) => {
+    if (!address) return 'Endereço não informado';
+
+    const cleanAddress = String(address).replace(/\s+/g, ' ').trim();
+
+    const withoutState = cleanAddress.replace(/\s*-\s*RJ$/i, '').trim();
+    const withoutCity = withoutState.replace(/,\s*[^,]+$/i, '').trim();
+    const neighborhood = withoutCity.split(' - ').pop()?.trim();
+
+    if (neighborhood) {
+      return `${neighborhood} - RJ`;
+    }
+
+    return cleanAddress;
+  };
+
+  const getUnitImages = (unit) => {
+    const manualEntry = manualPhotosCache.find((entry) => entry.slug === unit.slug) || null;
+    const unitImages = [
+      ...(manualEntry?.imagemPrincipal ? [manualEntry.imagemPrincipal] : []),
+      ...(Array.isArray(manualEntry?.galeria) ? manualEntry.galeria : []),
+      unit.imagemPrincipal,
+      ...(Array.isArray(unit.galeria) ? unit.galeria : [])
+    ]
+      .filter(Boolean)
+      .map((imagePath) => resolveAssetPath(imagePath));
+    return [...new Set(unitImages)];
+  };
+
+  const updateUnitCarousel = () => {
+    if (!unitModalMainImage || !activeModalImages.length) return;
+
+    const imagePath = activeModalImages[activeModalImageIndex];
+    unitModalMainImage.dataset.fallbackApplied = 'false';
+    unitModalMainImage.src = imagePath || `${pathPrefix}/assets/images/banners/hero-fallback.svg`;
+    unitModalMainImage.alt = activeModalUnit
+      ? `Foto ${activeModalImageIndex + 1} de ${activeModalUnit.nome}`
+      : 'Imagem da unidade';
+    applyImageFallback(unitModalMainImage);
+
+    if (unitModalCounter) {
+      unitModalCounter.textContent = `${activeModalImageIndex + 1} / ${activeModalImages.length}`;
+    }
+
+    if (unitModalGallery) {
+      unitModalGallery.querySelectorAll('[data-unit-modal-thumb]').forEach((thumb, index) => {
+        thumb.classList.toggle('is-active', index === activeModalImageIndex);
+      });
+    }
+
+    if (unitModalPrevButton) unitModalPrevButton.disabled = activeModalImages.length <= 1;
+    if (unitModalNextButton) unitModalNextButton.disabled = activeModalImages.length <= 1;
+  };
+
+  const moveUnitCarousel = (direction) => {
+    if (!activeModalImages.length) return;
+    activeModalImageIndex = (activeModalImageIndex + direction + activeModalImages.length) % activeModalImages.length;
+    updateUnitCarousel();
+  };
+
+  const closeUnitModal = () => {
+    if (!unitModal) return;
+    unitModal.classList.remove('is-open');
+    unitModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    activeModalUnit = null;
+  };
+
+  const openUnitModal = (unit) => {
+    if (!unitModal) return;
+
+    activeModalUnit = unit;
+    const unitImages = getUnitImages(unit);
+    activeModalImages = unitImages.length ? unitImages : [`${pathPrefix}/assets/images/banners/hero-fallback.svg`];
+    activeModalImageIndex = 0;
+
+    if (unitModalTitle) unitModalTitle.textContent = unit.nome;
+    if (unitModalCity) unitModalCity.textContent = unit.cidade || 'Unidade';
+    if (unitModalDescription) unitModalDescription.textContent = unit.descricao || 'Adicione aqui a descrição desta unidade.';
+    if (unitModalAddress) unitModalAddress.textContent = unit.endereco || 'Endereço não informado';
+    if (unitModalPhone) unitModalPhone.textContent = unit.telefone || 'Não informado';
+    if (unitModalHours) unitModalHours.textContent = unit.horario || 'A definir';
+
+    if (unitModalMainImage) {
+      unitModalMainImage.dataset.fallbackApplied = 'false';
+      unitModalMainImage.src = activeModalImages[0];
+      unitModalMainImage.alt = `Foto 1 de ${unit.nome}`;
+      applyImageFallback(unitModalMainImage);
+    }
+
+    if (unitModalGallery) {
+      unitModalGallery.innerHTML = activeModalImages
+        .map((imagePath, index) => {
+          return `
+            <button class="unit-modal__gallery-item" type="button" data-unit-modal-thumb data-index="${index}" aria-label="Mostrar foto ${index + 1}">
+              <img src="${imagePath}" alt="Foto ${index + 1} de ${unit.nome}">
+            </button>
+          `;
+        })
+        .join('');
+      unitModalGallery.querySelectorAll('img').forEach((img) => applyImageFallback(img));
+      unitModalGallery.querySelectorAll('[data-unit-modal-thumb]').forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          activeModalImageIndex = Number(thumb.dataset.index || 0);
+          updateUnitCarousel();
+        });
+      });
+    }
+
+    if (unitModalServices) {
+      const services = Array.isArray(unit.servicos) ? unit.servicos : [];
+      unitModalServices.innerHTML = services.length
+        ? services.map((service) => `<span class="unit-modal__chip">${service}</span>`).join('')
+        : '<span class="unit-modal__chip unit-modal__chip--empty">Serviços a cadastrar</span>';
+    }
+
+    if (unitModalFocusMapButton) {
+      unitModalFocusMapButton.style.display = 'none';
+    }
+
+    updateUnitCarousel();
+
+    unitModal.classList.add('is-open');
+    unitModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    unitModal.querySelector('.unit-modal__close')?.focus();
+  };
+
+  const renderHomeUnits = (units) => {
+    if (!homeUnitsList) return;
+
+    homeUnitsList.innerHTML = units
+      .map(
+        (unit) => `
+          <article class="unit-item" data-home-unit-id="${unit.id}">
+            <img class="unit-thumb" src="${resolveAssetPath(unit.imagemPrincipal) || `${pathPrefix}/assets/images/banners/hero-fallback.svg`}" alt="Foto principal de ${unit.nome}">
+            <div class="unit-item__body">
+              <h3>${unit.nome}</h3>
+              <p>${formatPublicAddress(unit.endereco)}</p>
+              <div class="unit-item__actions">
+                <button class="btn btn-secondary" data-open-unit-modal="${unit.id}">Ver mais</button>
+                <a class="btn btn-primary" href="pages/unidades.html">Ver no mapa</a>
+              </div>
+            </div>
+          </article>
+        `
+      )
+      .join('');
+
+    homeUnitsList.querySelectorAll('[data-open-unit-modal]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = Number(button.dataset.openUnitModal);
+        const unit = unitsCache.find((item) => item.id === id);
+        if (!unit) return;
+        openUnitModal(unit);
+      });
+    });
+  };
+
+  const syncHomeUnitsLayout = () => {
+    if (!homeUnitsList) return;
+
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      homeUnitsList.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+      homeUnitsList.style.gap = '0.8rem';
+    } else {
+      homeUnitsList.style.removeProperty('grid-template-columns');
+      homeUnitsList.style.removeProperty('gap');
+    }
+  };
+
+  if (homeUnitsList || unitModal) {
+    loadManualPhotos();
+    fetch(`${pathPrefix}/data/postos.json`)
+      .then((response) => response.json())
+      .then((units) => {
+        unitsCache = units;
+        try {
+          renderHomeUnits(units);
+          syncHomeUnitsLayout();
+        } catch (error) {
+          if (homeUnitsList) {
+            homeUnitsList.innerHTML = '<article class="unit-item"><p>Não foi possível montar a vitrine dos postos agora.</p></article>';
+          }
+        }
+      })
+      .catch(() => {
+        if (homeUnitsList) {
+          homeUnitsList.innerHTML = '<article class="unit-item"><p>Não foi possível carregar os postos agora.</p></article>';
+        }
+      });
+  }
+
+  unitModalCloseTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', closeUnitModal);
+  });
+
+  if (unitModalPrevButton) {
+    unitModalPrevButton.addEventListener('click', () => moveUnitCarousel(-1));
+  }
+
+  if (unitModalNextButton) {
+    unitModalNextButton.addEventListener('click', () => moveUnitCarousel(1));
+  }
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && unitModal?.classList.contains('is-open')) {
+      closeUnitModal();
+    }
+  });
+
+  window.addEventListener('resize', syncHomeUnitsLayout, { passive: true });
+
   const lazyImages = document.querySelectorAll('img[data-src]');
 
   if ('IntersectionObserver' in window && lazyImages.length) {
@@ -123,6 +386,8 @@
   const quickResults = document.querySelector('[data-quick-results]');
 
   if (quickCityInput && quickResults) {
+    quickResults.hidden = true;
+
     fetch(`${pathPrefix}/data/postos.json`)
       .then((response) => response.json())
       .then((units) => {
@@ -154,11 +419,13 @@
         };
 
         const render = (items, nearestDistanceKm = null) => {
+          quickResults.hidden = false;
           quickResults.innerHTML = items
             .slice(0, 6)
             .map(
               (unit, index) =>
                 `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
+                `<li><span><strong>${unit.nome}</strong><br>${formatPublicAddress(unit.endereco)}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
             )
             .join('');
 
@@ -166,8 +433,6 @@
             quickResults.innerHTML = '<li>Nenhuma unidade encontrada para este bairro.</li>';
           }
         };
-
-        render(units);
 
         let searchTimer = null;
         let searchToken = 0;
@@ -178,9 +443,15 @@
           if (searchTimer) clearTimeout(searchTimer);
 
           if (!term) {
-            render(units);
+            quickResults.innerHTML = '';
+            quickResults.hidden = true;
             return;
           }
+
+          const localMatches = units.filter(
+            (unit) => unit.endereco.toLowerCase().includes(term) || unit.cidade.toLowerCase().includes(term)
+          );
+          render(localMatches.length ? localMatches : units.slice(0, 1));
 
           searchTimer = setTimeout(async () => {
             const currentToken = ++searchToken;
@@ -215,6 +486,7 @@
         });
       })
       .catch(() => {
+        quickResults.hidden = false;
         quickResults.innerHTML = '<li>Não foi possível carregar as unidades agora.</li>';
       });
   }

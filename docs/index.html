@@ -14,9 +14,9 @@
     <link rel="icon" type="image/webp" href="assets/images/logo/favicon.webp">
     <link rel="shortcut icon" type="image/webp" href="assets/images/logo/favicon.webp">
     <link rel="apple-touch-icon" href="assets/images/logo/favicon.webp">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260803k">
+    <link rel="stylesheet" href="assets/css/responsive.css?v=20260803k">
+    <link rel="stylesheet" href="assets/css/animations.css?v=20260803k">
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
@@ -51,20 +51,41 @@
 
     <main id="conteudo">
       <section class="hero" aria-label="Destaque principal">
-        <video autoplay muted loop playsinline poster="assets/images/logo/posto.png" aria-hidden="true">
-          <source src="assets/images/banners/hero-video.mp4" type="video/mp4">
-        </video>
         <div class="hero-fallback" style="background-image: url('assets/images/logo/posto.png');"></div>
 
         <div class="container hero-content">
           <div class="hero-copy">
-            <h1>Rede Nota 10</h1>
+            <h1>REDE NOTA 10</h1>
             <p>A rede de postos que coloca você em primeiro lugar. Qualidade Ipiranga</p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="pages/unidades.html">Encontrar uma unidade</a>
               <a class="btn btn-ghost" href="pages/contato.html">Fale conosco</a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="section find-unit">
+        <div class="container quick-links">
+          <div class="section-head reveal">
+            <span class="eyebrow">Encontre uma unidade</span>
+            <h2>Encontre sua unidade no Rio de Janeiro</h2>
+            <p>Digite seu bairro e o resultado mostrará o posto mais próximo.</p>
+          </div>
+
+          <div class="search-shell reveal" role="search">
+            <label for="quick-city">Digite seu bairro</label>
+            <input id="quick-city" type="search" placeholder="Ex.: Campo Grande" data-quick-city>
+            <ul class="quick-results" data-quick-results></ul>
+          </div>
+        </div>
+
+        <div class="container featured-units-panel" style="margin-top: 1.5rem;">
+          <div class="section-head reveal">
+            <span class="eyebrow">Postos em destaque</span>
+            <h2>Veja os postos com foto principal e detalhes rápidos</h2>
+          </div>
+          <div class="units-list units-list--home" data-home-units-list></div>
         </div>
       </section>
 
@@ -98,22 +119,6 @@
             <article class="stat-card reveal"><strong data-counter="20">0</strong><span>Anos de atuação</span></article>
             <article class="stat-card reveal"><strong data-counter="1200000">0</strong><span>Clientes atendidos</span></article>
             <article class="stat-card reveal"><strong data-counter="98">0</strong><span>Índice de satisfação (%)</span></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section find-unit">
-        <div class="container quick-links">
-          <div class="section-head reveal">
-            <span class="eyebrow">Encontre uma unidade</span>
-            <h2>Encontre sua unidade no Rio de Janeiro</h2>
-            <p>Digite seu bairro e o resultado aparecerá o posto mais próximo.</p>
-          </div>
-
-          <div class="search-shell reveal" role="search">
-            <label for="quick-city">Digite seu bairro</label>
-            <input id="quick-city" type="search" placeholder="Ex.: Campo Grande" data-quick-city>
-            <ul class="quick-results" data-quick-results></ul>
           </div>
         </div>
       </section>
@@ -187,6 +192,56 @@
           </div>
         </div>
       </section>
+
+      <div class="unit-modal" data-unit-modal aria-hidden="true">
+        <div class="unit-modal__backdrop" data-close-unit-modal></div>
+        <div class="unit-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="unit-modal-title">
+          <button class="unit-modal__close" type="button" data-close-unit-modal aria-label="Fechar modal">×</button>
+          <div class="unit-modal__layout">
+            <figure class="unit-modal__hero">
+              <button class="unit-modal__nav unit-modal__nav--prev" type="button" data-unit-modal-prev aria-label="Imagem anterior">‹</button>
+              <img data-unit-modal-main-image alt="Imagem principal da unidade">
+              <button class="unit-modal__nav unit-modal__nav--next" type="button" data-unit-modal-next aria-label="Próxima imagem">›</button>
+              <span class="unit-modal__counter" data-unit-modal-counter>1 / 1</span>
+            </figure>
+
+            <div class="unit-modal__body">
+              <span class="eyebrow" data-unit-modal-city></span>
+              <h2 id="unit-modal-title" data-unit-modal-title></h2>
+              <p data-unit-modal-description></p>
+
+              <dl class="unit-modal__info">
+                <div>
+                  <dt>Endereço</dt>
+                  <dd data-unit-modal-address></dd>
+                </div>
+                <div>
+                  <dt>Telefone</dt>
+                  <dd data-unit-modal-phone></dd>
+                </div>
+                <div>
+                  <dt>Horário</dt>
+                  <dd data-unit-modal-hours></dd>
+                </div>
+              </dl>
+
+              <div>
+                <h3>Serviços</h3>
+                <div class="unit-modal__chips" data-unit-modal-services></div>
+              </div>
+
+              <div>
+                <h3>Mais fotos</h3>
+                <div class="unit-modal__gallery" data-unit-modal-gallery></div>
+              </div>
+
+              <div class="unit-modal__actions">
+                <button class="btn btn-primary" type="button" data-unit-modal-focus-map>Ver no mapa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="site-footer">
@@ -233,10 +288,10 @@
     <button class="whatsapp-float" aria-label="Abrir WhatsApp">W</button>
     <button class="back-to-top" data-back-to-top aria-label="Voltar ao topo">↑</button>
 
-    <script src="assets/js/menu.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
-    <script src="assets/js/carousel.js" defer></script>
-    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/menu.js?v=20260803k" defer></script>
+    <script src="assets/js/main.js?v=20260803k" defer></script>
+    <script src="assets/js/carousel.js?v=20260803k" defer></script>
+    <script src="assets/js/animations.js?v=20260803k" defer></script>
   </body>
 </html>
 
