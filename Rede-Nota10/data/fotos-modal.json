@@ -52,5 +52,14 @@
       "assets/images/postos/senna/galeria-2.jpg",
       "assets/images/postos/senna/galeria-3.jpg"
     ]
+  },
+  {
+    "slug": "cruzada-peninsula",
+    "imagemPrincipal": "assets/images/postos/cruzada-peninsula/principal.jpg",
+    "galeria": [
+      "assets/images/postos/cruzada-peninsula/galeria-1.jpg",
+      "assets/images/postos/cruzada-peninsula/galeria-2.jpg",
+      "assets/images/postos/cruzada-peninsula/galeria-3.jpg"
+    ]
   }
 ]

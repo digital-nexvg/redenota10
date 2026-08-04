@@ -109,8 +109,27 @@
 			"assets/images/postos/senna/galeria-2.jpg",
 			"assets/images/postos/senna/galeria-3.jpg"
 		],
-		"lat": -22.9986834,
-		"lng": -43.3639997,
+		"lat": -23.0031878,
+		"lng": -43.3661175,
+		"servicos": []
+	},
+	{
+		"id": 7,
+		"nome": "Auto Posto Cruzada Península",
+		"slug": "cruzada-peninsula",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Av Luis Carlos Prestes, S/N - Barra da Tijuca, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/cruzada-peninsula/principal.jpg",
+		"galeria": [
+			"assets/images/postos/cruzada-peninsula/galeria-1.jpg",
+			"assets/images/postos/cruzada-peninsula/galeria-2.jpg",
+			"assets/images/postos/cruzada-peninsula/galeria-3.jpg"
+		],
+		"lat": -22.996141,
+		"lng": -43.3572454,
 		"servicos": []
 	}
 ]
