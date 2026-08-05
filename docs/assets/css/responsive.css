@@ -133,7 +133,7 @@
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px) and (hover: none) and (pointer: coarse) {
+@media (width: 1024px) and (height: 1366px) and (orientation: portrait) and (hover: none) and (pointer: coarse) {
   .site-header .logo-link img {
     height: clamp(82px, 10.8vw, 112px);
   }
