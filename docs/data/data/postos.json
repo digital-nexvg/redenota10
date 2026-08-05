@@ -1,0 +1,135 @@
+[
+	{
+		"id": 1,
+		"nome": "Posto JOINHA",
+		"slug": "joinha",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Rua Cândido Benício, 687 - Campinho, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/joinha/principal.jpg",
+		"galeria": [
+			"assets/images/postos/joinha/galeria-1.jpg",
+			"assets/images/postos/joinha/galeria-2.jpg",
+			"assets/images/postos/joinha/galeria-3.jpg"
+		],
+		"lat": -22.9106942,
+		"lng": -43.3602137,
+		"servicos": []
+	},
+	{
+		"id": 2,
+		"nome": "VIA GÁS",
+		"slug": "via-gas",
+		"cidade": "Itaboraí",
+		"endereco": "Av 22 de Maio, S/N, LT1, QD 88 - Retiro São Joaquim, Itaboraí - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/via-gas/principal.jpg",
+		"galeria": [
+			"assets/images/postos/via-gas/galeria-1.jpg",
+			"assets/images/postos/via-gas/galeria-2.jpg",
+			"assets/images/postos/via-gas/galeria-3.jpg"
+		],
+		"lat": -22.7544541,
+		"lng": -42.8905956,
+		"servicos": []
+	},
+	{
+		"id": 3,
+		"nome": "Auto Posto Cremoneze",
+		"slug": "cremoneze",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Estrada do Mendanha, 4240 - Campo Grande, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/cremoneze/principal.jpg",
+		"galeria": [
+			"assets/images/postos/cremoneze/galeria-1.jpg",
+			"assets/images/postos/cremoneze/galeria-2.jpg",
+			"assets/images/postos/cremoneze/galeria-3.jpg"
+		],
+		"lat": -22.8625506,
+		"lng": -43.5411908,
+		"servicos": []
+	},
+	{
+		"id": 4,
+		"nome": "Posto Mega Engenho Novo",
+		"slug": "mega-engenho-novo",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Rua Souza Barros, 636 - Engenho Novo, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/mega-engenho-novo/principal.jpg",
+		"galeria": [
+			"assets/images/postos/mega-engenho-novo/galeria-1.jpg",
+			"assets/images/postos/mega-engenho-novo/galeria-2.jpg",
+			"assets/images/postos/mega-engenho-novo/galeria-3.jpg"
+		],
+		"lat": -22.9000102,
+		"lng": -43.2645151,
+		"servicos": []
+	},
+	{
+		"id": 5,
+		"nome": "Posto de Gasolina Nota 10 do Grajaú",
+		"slug": "grajau",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Rua Barão do Bom Retiro, 1864 - Grajaú, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/grajau/principal.jpg",
+		"galeria": [
+			"assets/images/postos/grajau/galeria-1.jpg",
+			"assets/images/postos/grajau/galeria-2.jpg",
+			"assets/images/postos/grajau/galeria-3.jpg"
+		],
+		"lat": -22.9195915,
+		"lng": -43.2613571,
+		"servicos": []
+	},
+	{
+		"id": 6,
+		"nome": "Auto Posto Senna",
+		"slug": "senna",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Av Ayrton Senna, S/N - Canteiro Central, Barra da Tijuca, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/senna/principal.jpg",
+		"galeria": [
+			"assets/images/postos/senna/galeria-1.jpg",
+			"assets/images/postos/senna/galeria-2.jpg",
+			"assets/images/postos/senna/galeria-3.jpg"
+		],
+		"lat": -23.0031878,
+		"lng": -43.3661175,
+		"servicos": []
+	},
+	{
+		"id": 7,
+		"nome": "Auto Posto Cruzada Península",
+		"slug": "cruzada-peninsula",
+		"cidade": "Rio de Janeiro",
+		"endereco": "Av Luis Carlos Prestes, S/N - Barra da Tijuca, Rio de Janeiro - RJ",
+		"telefone": "Não informado",
+		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"horario": "A definir",
+		"imagemPrincipal": "assets/images/postos/cruzada-peninsula/principal.jpg",
+		"galeria": [
+			"assets/images/postos/cruzada-peninsula/galeria-1.jpg",
+			"assets/images/postos/cruzada-peninsula/galeria-2.jpg",
+			"assets/images/postos/cruzada-peninsula/galeria-3.jpg"
+		],
+		"lat": -22.996141,
+		"lng": -43.3572454,
+		"servicos": []
+	}
+]
