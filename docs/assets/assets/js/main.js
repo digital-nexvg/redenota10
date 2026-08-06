@@ -418,13 +418,41 @@
             .catch(() => null);
         };
 
+        const normalizeText = (value) =>
+          String(value ?? '')
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+
+        const extractNeighborhood = (address) => {
+          if (!address) return '';
+
+          const cleanAddress = String(address).replace(/\s+/g, ' ').trim();
+          const parts = cleanAddress.split('-').map((part) => part.trim());
+          const lastPart = parts[parts.length - 1] || '';
+          const match = lastPart.match(/^(.*?)(?:,\s*Rio de Janeiro\b|,\s*[^,]+)$/i);
+
+          return match ? match[1].trim() : lastPart;
+        };
+
+        const matchesUnitTerm = (unit, term) => {
+          const normalizedTerm = normalizeText(term);
+
+          if (!normalizedTerm) return true;
+
+          const searchableFields = [unit.nome, unit.endereco, unit.cidade, extractNeighborhood(unit.endereco)]
+            .filter(Boolean)
+            .map(normalizeText);
+
+          return searchableFields.some((field) => field.includes(normalizedTerm));
+        };
+
         const render = (items, nearestDistanceKm = null) => {
           quickResults.hidden = false;
           quickResults.innerHTML = items
             .slice(0, 6)
             .map(
               (unit, index) =>
-                `<li><span><strong>${unit.nome}</strong><br>${unit.endereco}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
                 `<li><span><strong>${unit.nome}</strong><br>${formatPublicAddress(unit.endereco)}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
             )
             .join('');
@@ -438,7 +466,7 @@
         let searchToken = 0;
 
         quickCityInput.addEventListener('input', () => {
-          const term = quickCityInput.value.trim().toLowerCase();
+          const term = quickCityInput.value.trim();
 
           if (searchTimer) clearTimeout(searchTimer);
 
@@ -448,10 +476,8 @@
             return;
           }
 
-          const localMatches = units.filter(
-            (unit) => unit.endereco.toLowerCase().includes(term) || unit.cidade.toLowerCase().includes(term)
-          );
-          render(localMatches.length ? localMatches : units.slice(0, 1));
+          const localMatches = units.filter((unit) => matchesUnitTerm(unit, term));
+          render(localMatches.length ? localMatches : units.slice(0, 3));
 
           searchTimer = setTimeout(async () => {
             const currentToken = ++searchToken;
@@ -461,12 +487,8 @@
             if (currentToken !== searchToken) return;
 
             if (!origin) {
-              const fallback = units.filter(
-                (unit) =>
-                  unit.endereco.toLowerCase().includes(term) ||
-                  unit.cidade.toLowerCase().includes(term)
-              );
-              render(fallback);
+              const fallback = units.filter((unit) => matchesUnitTerm(unit, term));
+              render(fallback.length ? fallback : units.slice(0, 3));
               return;
             }
 
