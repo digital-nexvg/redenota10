@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./docs
+          path: ./Rede-Nota10
 
       - name: Deploy to GitHub Pages
         id: deployment
