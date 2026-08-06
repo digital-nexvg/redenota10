@@ -66,6 +66,10 @@
     });
   });
 
+  const updateScrollBackground = () => {
+    document.body.classList.toggle('is-scrolled', window.scrollY > 60);
+  };
+
   const toggleBackToTop = () => {
     if (!backToTopBtn) return;
     const isDisabled = backToTopBtn.dataset.disabled === 'true';
@@ -74,8 +78,12 @@
     backToTopBtn.classList.toggle('visible', shouldShow);
   };
 
+  updateScrollBackground();
   toggleBackToTop();
-  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  window.addEventListener('scroll', () => {
+    updateScrollBackground();
+    toggleBackToTop();
+  }, { passive: true });
 
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
