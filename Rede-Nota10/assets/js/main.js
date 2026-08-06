@@ -117,6 +117,11 @@
 
   if (promoSlides.length) {
     let active = 0;
+
+    promoSlides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === active);
+    });
+
     setInterval(() => {
       promoSlides[active].classList.remove('active');
       active = (active + 1) % promoSlides.length;
