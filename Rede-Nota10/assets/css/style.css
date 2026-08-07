@@ -17,6 +17,8 @@
   --radius-md: 18px;
   --radius-lg: 28px;
   --container: 1200px;
+  --hero-shell-max: 1180px;
+  --hero-shell-radius: 32px;
   --transition: 280ms ease;
 }
 
@@ -52,7 +54,9 @@ body::before {
 }
 
 .site-header {
-  background: linear-gradient(135deg, #1ea55b 0%, #2bc06a 48%, #0f6135 100%);
+  background: linear-gradient(135deg, rgba(30, 165, 91, 0.92) 0%, rgba(43, 192, 106, 0.9) 48%, rgba(15, 97, 53, 0.95) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .site-header.scrolled,
@@ -260,8 +264,16 @@ ul {
 .main-nav a:hover,
 .main-nav a:focus-visible,
 .main-nav a.active {
-  background: rgba(90, 45, 189, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.site-header.scrolled .main-nav a.active,
+body.inner-page .site-header .main-nav a.active {
+  background: rgba(90, 45, 189, 0.12);
   color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px rgba(90, 45, 189, 0.15);
 }
 
 .main-nav .nav-cta {
@@ -275,8 +287,9 @@ ul {
 }
 
 .site-header.is-transparent {
-  background: linear-gradient(90deg, #0f3b6f 0%, #1e5fae 34%, #3d7fda 68%, rgba(255,255,255,0.96) 100%);
-  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.12);
+  background: linear-gradient(90deg, rgba(15, 97, 53, 0.94) 0%, rgba(30, 165, 91, 0.92) 34%, rgba(43, 192, 106, 0.84) 68%, rgba(255,255,255,0.96) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .site-header.is-transparent .logo-text,
@@ -303,28 +316,59 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .hero {
-  min-height: 86vh;
+  min-height: clamp(620px, 82vh, 860px);
   position: relative;
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-  margin-top: 0;
-  padding-top: 0;
-  padding-inline: 1rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-top: -0.25rem;
+  padding: 0.25rem 1rem 3rem;
+  background: transparent;
 }
 
 .campaigns-section {
-  padding-top: 7rem;
-  padding-bottom: 0;
+  padding-top: 6.2rem;
+  padding-bottom: 0.15rem;
   margin-top: 0;
   position: relative;
   z-index: 2;
+  overflow: visible;
+  isolation: isolate;
+}
+
+
+@media (min-width: 1199px) {
+  .campaigns-section {
+    padding-top: 5.2rem;
+    padding-bottom: 0.35rem;
+    margin-top: 0;
+  }
+
+  .campaigns-section::before,
+  .campaigns-section::after {
+    inset: -2.2rem 0 -1.6rem;
+  }
+
+  .campaigns-section .promo-wrap {
+    margin-top: 0;
+    min-height: clamp(220px, 25vh, 300px);
+  }
+
+  .hero {
+    margin-top: 0;
+    padding-top: 0.2rem;
+    padding-bottom: 2.4rem;
+  }
+}
+
+.campaigns-section .container {
+  max-width: var(--hero-shell-max);
 }
 
 .campaigns-section .section-head {
-  margin-bottom: 0;
+  margin-bottom: 0.45rem;
 }
 
 .campaigns-section .section-head .eyebrow {
@@ -333,11 +377,16 @@ body.inner-page .site-header .menu-toggle span {
 
 .campaigns-section .promo-wrap {
   margin-top: 0;
-  max-width: 860px;
+  max-width: 100%;
   margin-inline: auto;
   transform: none;
-  min-height: 180px;
-  border-radius: 0 0 24px 24px;
+  min-height: clamp(180px, 24vh, 260px);
+  border-radius: var(--hero-shell-radius);
+  box-shadow: 0 24px 60px rgba(8, 22, 46, 0.16);
+  background: linear-gradient(135deg, rgba(7, 16, 36, 0.48), rgba(7, 16, 36, 0.2)), url('../images/logo/cremo.jpg');
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 .hero-promo-banner {
@@ -384,18 +433,40 @@ body.inner-page .site-header .menu-toggle span {
 
 .hero .hero-fallback {
   display: block;
+  background-image: linear-gradient(90deg, rgba(7, 16, 36, 0.18), rgba(7, 16, 36, 0.28)), url('../images/logo/cremo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center 62%;
-  width: min(var(--container), calc(100% - 2rem));
-  height: auto;
-  inset: auto;
-  margin: 0 auto;
-  border-radius: 24px;
-  top: 2rem;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  background-position: center center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    background: transparent;
+  }
+
+  .hero .hero-fallback {
+    background-image: linear-gradient(90deg, rgba(7, 16, 36, 0.24), rgba(7, 16, 36, 0.34)), url('../images/logo/hero-menu.jpg') !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    width: 100% !important;
+    height: 100% !important;
+    inset: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
 }
 
 .hero video {
@@ -406,7 +477,8 @@ body.inner-page .site-header .menu-toggle span {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(90deg, rgba(2, 10, 25, 0.72) 0%, rgba(2, 10, 25, 0.42) 42%, rgba(2, 10, 25, 0.16) 100%);
+  z-index: 0;
 }
 
 .hero .hero-content {
@@ -422,25 +494,130 @@ body.inner-page .site-header .menu-toggle span {
   text-align: center;
   transform: translateY(0.4rem);
   text-shadow: 0 2px 14px rgba(8, 14, 28, 0.5);
+  min-height: 100%;
+  align-content: center;
+}
+
+.hero-promo-stack {
+  position: relative;
+  width: min(100%, 560px);
+  min-height: 220px;
+  justify-self: start;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 18px 48px rgba(12, 18, 32, 0.24);
+  background: rgba(7, 16, 36, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero-promo-card {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(24px);
+  animation: heroPromoFade 12s infinite;
+  display: grid;
+}
+
+.hero-promo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-promo-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(4, 10, 22, 0.84) 0%, rgba(4, 10, 22, 0.48) 45%, rgba(4, 10, 22, 0.16) 100%);
+}
+
+.hero-promo-card__content {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  padding: 1.1rem 1.2rem;
+  max-width: min(100%, 32ch);
+  color: #fff;
+}
+
+.hero-promo-card__content .eyebrow {
+  display: inline-block;
+  color: #b8f1c5;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.hero-promo-card__content h3 {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  line-height: 1.2;
+}
+
+.hero-promo-card__content p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.hero-promo-card:nth-child(2) {
+  animation-delay: 4s;
+}
+
+.hero-promo-card:nth-child(3) {
+  animation-delay: 8s;
+}
+
+@keyframes heroPromoFade {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  8% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  33% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  41% {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
 }
 
 .hero .hero-copy {
   display: inline-grid;
-  max-width: 42ch;
-  margin-inline: auto;
-  justify-self: center;
+  max-width: min(100%, 520px);
+  margin-inline: 0;
+  justify-self: start;
   padding: 1.4rem 1.6rem;
-  background: linear-gradient(180deg, rgba(12, 18, 32, 0.22), rgba(12, 18, 32, 0.14));
+  background: linear-gradient(135deg, rgba(7, 16, 36, 0.55), rgba(7, 16, 36, 0.3)), url('../images/logo/cremo.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   border-radius: 24px;
-  box-shadow: 0 18px 48px rgba(12, 18, 32, 0.18);
-  backdrop-filter: blur(4px);
+  box-shadow: 0 18px 48px rgba(12, 18, 32, 0.2);
+  backdrop-filter: blur(6px);
+  text-align: left;
 }
 
 .hero h1 {
   margin: 0;
   font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   font-size: clamp(2rem, 8vw, 4.8rem);
-  line-height: 1.05;
+  line-height: 0.95;
   color: inherit;
 }
 
@@ -454,7 +631,7 @@ body.inner-page .site-header .menu-toggle span {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .hero .hero-brandshot {
@@ -517,7 +694,7 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .stats {
-  background: linear-gradient(135deg, #08347d 0%, #05285f 100%);
+  background: linear-gradient(135deg, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
 }
 
 .stats .section-head .eyebrow,
@@ -560,8 +737,73 @@ body.inner-page .site-header .menu-toggle span {
   background: var(--color-bg-soft);
 }
 
+.brand-spotlight {
+  padding-top: 0.35rem;
+  padding-bottom: 1.4rem;
+}
+
+.brand-spotlight__card {
+  background: linear-gradient(135deg, rgba(11, 16, 28, 0.95), rgba(29, 33, 46, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: clamp(1.35rem, 3vw, 2.2rem);
+  display: grid;
+  gap: 1.2rem;
+  box-shadow: 0 20px 50px rgba(5, 8, 16, 0.26);
+  backdrop-filter: blur(8px);
+}
+
+.brand-spotlight__copy {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.brand-spotlight__copy .eyebrow {
+  color: #b8f1c5;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+}
+
+.brand-spotlight__copy h2 {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.45rem, 3.1vw, 2rem);
+  line-height: 1.2;
+  color: #f7f9fc;
+}
+
+.brand-spotlight__copy p {
+  margin: 0;
+  color: rgba(237, 241, 255, 0.86);
+  max-width: 68ch;
+  font-size: 1rem;
+}
+
+.brand-spotlight__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.brand-spotlight__actions .btn-primary {
+  background: linear-gradient(135deg, var(--color-accent), #3fd27a);
+  box-shadow: 0 12px 28px rgba(30, 165, 91, 0.26);
+}
+
+.brand-spotlight__actions .btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f7f9fc;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.brand-spotlight__instagram {
+  gap: 0.45rem;
+  padding-inline: 1rem;
+}
+
 .featured-units-panel {
-  background: linear-gradient(135deg, #08347d 0%, #05285f 100%);
+  background: linear-gradient(135deg, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
   border-radius: 28px;
   padding: 1.4rem;
   width: min(1400px, calc(100vw - 0.5rem));
@@ -674,9 +916,10 @@ body.inner-page .site-header .menu-toggle span {
   inset: 0;
   opacity: 0;
   transition: opacity 500ms ease;
-  display: grid;
-  align-content: center;
-  padding: 1.4rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 1.2rem 1.2rem 1.15rem;
   color: #fff;
   background-size: cover;
   background-position: center;
@@ -687,11 +930,46 @@ body.inner-page .site-header .menu-toggle span {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, rgba(8, 10, 16, 0.72), rgba(8, 10, 16, 0.2));
+  background: linear-gradient(110deg, rgba(8, 10, 16, 0.78) 0%, rgba(8, 10, 16, 0.34) 52%, rgba(8, 10, 16, 0.16) 100%);
 }
 
 .promo-slide > * {
   position: relative;
+  margin: 0;
+  z-index: 1;
+}
+
+.promo-slide h3 {
+  margin-bottom: 0.15rem;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  line-height: 1.2;
+  max-width: min(100%, 28rem);
+}
+
+.promo-slide p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  max-width: min(100%, 34ch);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 760px) {
+  .campaigns-section::before,
+  .campaigns-section::after {
+    inset: -1.2rem 0 -1rem;
+  }
+
+  .promo-slide {
+    padding: 1rem 0.95rem 1rem;
+  }
+
+  .promo-slide h3 {
+    font-size: 0.98rem;
+  }
+
+  .promo-slide p {
+    font-size: 0.88rem;
+  }
 }
 
 .promo-slide.active {
@@ -705,7 +983,7 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .reviews-section {
-  background: linear-gradient(135deg, #08347d 0%, #05285f 100%);
+  background: linear-gradient(135deg, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
 }
 
 .reviews-section .section-head .eyebrow,
@@ -810,7 +1088,7 @@ body.inner-page .site-header .menu-toggle span {
 .inner-hero {
   margin-top: 88px;
   padding: 5rem 0 3rem;
-  background: linear-gradient(130deg, #1a2030, #4f2ca4);
+  background: linear-gradient(130deg, #145c35, var(--app-bg-start));
   color: #fff;
 }
 

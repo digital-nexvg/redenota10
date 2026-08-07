@@ -23,6 +23,29 @@
     display: none;
   }
 
+  .campaigns-section {
+    padding-top: 6.2rem;
+    padding-bottom: 0.1rem;
+  }
+
+  .campaigns-section::before,
+  .campaigns-section::after {
+    inset: -2rem 0 -1.2rem;
+  }
+
+  .hero {
+    margin-top: -0.4rem;
+    padding-top: 0.1rem;
+  }
+
+  .hero .hero-content {
+    padding-inline: 1.2rem;
+  }
+
+  .hero .hero-copy {
+    max-width: 540px;
+  }
+
   .site-header .header-wrap {
     min-height: 94px;
   }
@@ -103,9 +126,19 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1199px) {
   .hero .hero-content {
     max-width: min(58%, var(--container));
+  }
+
+  .campaigns-section {
+    padding-top: 5.2rem;
+    padding-bottom: 0.35rem;
+    margin-top: 0;
+  }
+
+  .campaigns-section .promo-wrap {
+    min-height: clamp(220px, 25vh, 300px);
   }
 
   .section {
@@ -159,15 +192,30 @@
 }
 
 @media (max-width: 760px) {
+  .campaigns-section .promo-wrap {
+    min-height: clamp(160px, 22vh, 220px);
+  }
+
   .hero .hero-fallback {
     background-position: 88% center;
+    height: min(72vh, 540px);
   }
 
   .hero .hero-content {
-    max-width: min(92%, var(--container));
+    width: min(100%, calc(var(--hero-shell-max) - 1rem));
+    place-items: center;
+    padding-inline: 0;
+  }
+
+  .hero .hero-copy {
+    justify-self: center;
+    margin-inline: auto;
+    text-align: center;
+    max-width: min(100%, 520px);
   }
 
   .hero .hero-actions {
+    justify-content: center;
     gap: 0.55rem;
   }
 
