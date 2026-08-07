@@ -66,6 +66,10 @@
     });
   });
 
+  const updateScrollBackground = () => {
+    document.body.classList.toggle('is-scrolled', window.scrollY > 60);
+  };
+
   const toggleBackToTop = () => {
     if (!backToTopBtn) return;
     const isDisabled = backToTopBtn.dataset.disabled === 'true';
@@ -74,8 +78,12 @@
     backToTopBtn.classList.toggle('visible', shouldShow);
   };
 
+  updateScrollBackground();
   toggleBackToTop();
-  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  window.addEventListener('scroll', () => {
+    updateScrollBackground();
+    toggleBackToTop();
+  }, { passive: true });
 
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
@@ -117,6 +125,11 @@
 
   if (promoSlides.length) {
     let active = 0;
+
+    promoSlides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === active);
+    });
+
     setInterval(() => {
       promoSlides[active].classList.remove('active');
       active = (active + 1) % promoSlides.length;
@@ -449,17 +462,22 @@
 
         const render = (items, nearestDistanceKm = null) => {
           quickResults.hidden = false;
-          quickResults.innerHTML = items
-            .slice(0, 6)
-            .map(
-              (unit, index) =>
-                `<li><span><strong>${unit.nome}</strong><br>${formatPublicAddress(unit.endereco)}${nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : ''}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`
-            )
-            .join('');
 
           if (!items.length) {
             quickResults.innerHTML = '<li>Nenhuma unidade encontrada para este bairro.</li>';
+            return;
           }
+
+          const html = items
+            .slice(0, 6)
+            .map((unit, index) => {
+              const address = formatPublicAddress(unit.endereco);
+              const distanceMarkup = nearestDistanceKm !== null && index === 0 ? `<br><small>Mais próximo: ${nearestDistanceKm.toFixed(1)} km</small>` : '';
+              return `<li><span><strong>${unit.nome}</strong><br>${address}${distanceMarkup}</span><a class="btn btn-secondary" href="${pathPrefix}/pages/unidades.html">Ver</a></li>`;
+            })
+            .join('');
+
+          quickResults.innerHTML = html;
         };
 
         let searchTimer = null;
