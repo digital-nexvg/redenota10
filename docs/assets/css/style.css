@@ -384,8 +384,8 @@ body.inner-page .site-header .menu-toggle span {
   border-radius: var(--hero-shell-radius);
   box-shadow: 0 24px 60px rgba(8, 22, 46, 0.16);
   background: linear-gradient(135deg, rgba(7, 16, 36, 0.48), rgba(7, 16, 36, 0.2)), url('../images/logo/cremo.jpg');
-  background-size: 100% auto;
-  background-position: center top;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
 }
 
@@ -434,11 +434,11 @@ body.inner-page .site-header .menu-toggle span {
 .hero .hero-fallback {
   display: block;
   background-image: linear-gradient(90deg, rgba(7, 16, 36, 0.18), rgba(7, 16, 36, 0.28)), url('../images/logo/cremo.jpg');
-  background-size: 100% auto;
-  background-position: center top;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   width: min(100%, var(--hero-shell-max));
-  height: clamp(480px, 70vh, 760px);
+  height: auto;
   inset: auto;
   margin: 0 auto;
   border-radius: var(--hero-shell-radius);
@@ -900,6 +900,14 @@ body.inner-page .site-header .menu-toggle span {
 
 .fuel-card.diesel {
   background: linear-gradient(130deg, #ff7a1a, #ff9b4f);
+}
+
+.fuel-card.gnv {
+  background: linear-gradient(130deg, #2c6fdb, #5a8ef1);
+}
+
+.fuel-card.eletrica {
+  background: linear-gradient(130deg, #0f8a8a, #1fb6b6);
 }
 
 .promo-wrap {

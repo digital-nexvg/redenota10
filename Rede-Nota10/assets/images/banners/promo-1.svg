@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#25184f"/>
-  <circle cx="1050" cy="120" r="250" fill="#5a2dbd" opacity="0.7"/>
-  <circle cx="180" cy="640" r="300" fill="#ff7a1a" opacity="0.7"/>
-  <text x="90" y="280" font-family="Sora, sans-serif" font-size="84" fill="#fff">Promoções da Semana</text>
-  <text x="90" y="360" font-family="DM Sans, sans-serif" font-size="48" fill="#fff">Abasteça com economia e qualidade.</text>
-</svg>

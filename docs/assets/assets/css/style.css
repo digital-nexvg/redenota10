@@ -563,6 +563,14 @@ body.inner-page .site-header .menu-toggle span {
   background: linear-gradient(130deg, #ff7a1a, #ff9b4f);
 }
 
+.fuel-card.gnv {
+  background: linear-gradient(130deg, #2c6fdb, #5a8ef1);
+}
+
+.fuel-card.eletrica {
+  background: linear-gradient(130deg, #0f8a8a, #1fb6b6);
+}
+
 .promo-wrap {
   position: relative;
   overflow: hidden;
