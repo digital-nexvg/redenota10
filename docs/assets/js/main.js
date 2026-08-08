@@ -24,10 +24,14 @@
   const unitModalCounter = document.querySelector('[data-unit-modal-counter]');
   const unitModalFocusMapButton = document.querySelector('[data-unit-modal-focus-map]');
   const unitModalCloseTriggers = document.querySelectorAll('[data-close-unit-modal]');
+  const UNITS_CACHE_KEY = 'rn10_units_cache_v1';
+  const UNITS_CACHE_TTL_MS = 1000 * 60 * 60 * 12;
   let unitsCache = [];
   let activeModalUnit = null;
   let activeModalImages = [];
   let activeModalImageIndex = 0;
+  let quickSearchUnits = [];
+  let quickSearchInitialized = false;
 
   const hideBackToTopOnPage = /\/pages\/(trabalhe-conosco|contato)\.html$/i.test(window.location.pathname);
 
@@ -181,6 +185,35 @@
     return [...new Set(unitImages)];
   };
 
+  const readUnitsCache = () => {
+    try {
+      const rawCache = localStorage.getItem(UNITS_CACHE_KEY);
+      if (!rawCache) return [];
+
+      const parsed = JSON.parse(rawCache);
+      const isExpired = !parsed?.timestamp || Date.now() - parsed.timestamp > UNITS_CACHE_TTL_MS;
+      if (isExpired || !Array.isArray(parsed?.units)) return [];
+
+      return parsed.units;
+    } catch {
+      return [];
+    }
+  };
+
+  const writeUnitsCache = (units) => {
+    try {
+      localStorage.setItem(
+        UNITS_CACHE_KEY,
+        JSON.stringify({
+          timestamp: Date.now(),
+          units: Array.isArray(units) ? units : []
+        })
+      );
+    } catch {
+      // Ignore cache write errors (private mode or quota limits).
+    }
+  };
+
   const updateUnitCarousel = () => {
     if (!unitModalMainImage || !activeModalImages.length) return;
 
@@ -328,10 +361,22 @@
       homeUnitsList.innerHTML = '<article class="unit-item"><p>Carregando postos em destaque...</p></article>';
     }
 
+    const cachedUnits = readUnitsCache();
+    let hasRenderedUnits = false;
+
+    if (cachedUnits.length) {
+      unitsCache = cachedUnits;
+      renderHomeUnits(cachedUnits);
+      syncHomeUnitsLayout();
+      setupQuickCitySearch(cachedUnits);
+      hasRenderedUnits = true;
+    }
+
     fetch(`${pathPrefix}/data/postos.json`)
       .then((response) => response.json())
       .then((units) => {
         unitsCache = units;
+        writeUnitsCache(units);
         try {
           renderHomeUnits(units);
           syncHomeUnitsLayout();
@@ -343,7 +388,7 @@
         }
       })
       .catch(() => {
-        if (homeUnitsList) {
+        if (homeUnitsList && !hasRenderedUnits) {
           homeUnitsList.innerHTML = '<article class="unit-item"><p>Não foi possível carregar os postos agora.</p></article>';
         }
       });
@@ -390,6 +435,11 @@
 
   const setupQuickCitySearch = (units) => {
     if (!quickCityInput || !quickResults) return;
+
+    quickSearchUnits = Array.isArray(units) ? units : [];
+
+    if (quickSearchInitialized) return;
+    quickSearchInitialized = true;
 
     quickResults.hidden = true;
 
@@ -483,8 +533,8 @@
         return;
       }
 
-      const localMatches = units.filter((unit) => matchesUnitTerm(unit, term));
-      render(localMatches.length ? localMatches : units.slice(0, 3));
+      const localMatches = quickSearchUnits.filter((unit) => matchesUnitTerm(unit, term));
+      render(localMatches.length ? localMatches : quickSearchUnits.slice(0, 3));
 
       searchTimer = setTimeout(async () => {
         const currentToken = ++searchToken;
@@ -494,15 +544,15 @@
         if (currentToken !== searchToken) return;
 
         if (!origin) {
-          const fallback = units.filter((unit) => matchesUnitTerm(unit, term));
-          render(fallback.length ? fallback : units.slice(0, 3));
+          const fallback = quickSearchUnits.filter((unit) => matchesUnitTerm(unit, term));
+          render(fallback.length ? fallback : quickSearchUnits.slice(0, 3));
           return;
         }
 
-        let nearest = units[0];
+        let nearest = quickSearchUnits[0];
         let shortestDistance = calculateDistanceKm(origin.lat, origin.lng, nearest.lat, nearest.lng);
 
-        units.slice(1).forEach((unit) => {
+        quickSearchUnits.slice(1).forEach((unit) => {
           const distance = calculateDistanceKm(origin.lat, origin.lng, unit.lat, unit.lng);
           if (distance < shortestDistance) {
             shortestDistance = distance;
