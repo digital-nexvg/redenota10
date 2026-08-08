@@ -24,7 +24,6 @@
   let map;
   const markerMap = new Map();
   let unitsCache = [];
-  let manualPhotosCache = [];
   let originMarker = null;
   let activeModalUnit = null;
 
@@ -47,16 +46,6 @@
       { once: true }
     );
   };
-
-  const loadManualPhotos = () =>
-    fetch(`${pathPrefix}/data/fotos-modal.json`)
-      .then((response) => response.json())
-      .then((entries) => {
-        manualPhotosCache = Array.isArray(entries) ? entries : [];
-      })
-      .catch(() => {
-        manualPhotosCache = [];
-      });
 
   const formatPublicAddress = (address) => {
     if (!address) return 'Endereço não informado';
@@ -86,10 +75,7 @@
     if (!unitModal) return;
 
     activeModalUnit = unit;
-    const manualEntry = manualPhotosCache.find((entry) => entry.slug === unit.slug) || null;
     const unitImages = [
-      ...(manualEntry?.imagemPrincipal ? [manualEntry.imagemPrincipal] : []),
-      ...(Array.isArray(manualEntry?.galeria) ? manualEntry.galeria : []),
       unit.imagemPrincipal,
       ...(Array.isArray(unit.galeria) ? unit.galeria : [])
     ]
@@ -101,7 +87,7 @@
     if (unitModalDescription) unitModalDescription.textContent = unit.descricao || 'Adicione aqui a descrição desta unidade.';
     if (unitModalAddress) unitModalAddress.textContent = unit.endereco || 'Endereço não informado';
     if (unitModalPhone) unitModalPhone.textContent = unit.telefone || 'Não informado';
-    if (unitModalHours) unitModalHours.textContent = unit.horario || 'A definir';
+    if (unitModalHours) unitModalHours.textContent = unit.horario || 'Funcionamento 24h';
 
     if (unitModalMainImage) {
       unitModalMainImage.dataset.fallbackApplied = 'false';
@@ -333,7 +319,6 @@
     .then((response) => response.json())
     .then((units) => {
       unitsCache = units;
-      loadManualPhotos();
       setupMap(units);
       renderUnitList(units);
 

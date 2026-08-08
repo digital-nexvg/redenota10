@@ -25,7 +25,6 @@
   const unitModalFocusMapButton = document.querySelector('[data-unit-modal-focus-map]');
   const unitModalCloseTriggers = document.querySelectorAll('[data-close-unit-modal]');
   let unitsCache = [];
-  let manualPhotosCache = [];
   let activeModalUnit = null;
   let activeModalImages = [];
   let activeModalImageIndex = 0;
@@ -143,16 +142,6 @@
     );
   };
 
-  const loadManualPhotos = () =>
-    fetch(`${pathPrefix}/data/fotos-modal.json`)
-      .then((response) => response.json())
-      .then((entries) => {
-        manualPhotosCache = Array.isArray(entries) ? entries : [];
-      })
-      .catch(() => {
-        manualPhotosCache = [];
-      });
-
   const formatPublicAddress = (address) => {
     if (!address) return 'Endereço não informado';
 
@@ -170,10 +159,7 @@
   };
 
   const getUnitImages = (unit) => {
-    const manualEntry = manualPhotosCache.find((entry) => entry.slug === unit.slug) || null;
     const unitImages = [
-      ...(manualEntry?.imagemPrincipal ? [manualEntry.imagemPrincipal] : []),
-      ...(Array.isArray(manualEntry?.galeria) ? manualEntry.galeria : []),
       unit.imagemPrincipal,
       ...(Array.isArray(unit.galeria) ? unit.galeria : [])
     ]
@@ -234,7 +220,7 @@
     if (unitModalDescription) unitModalDescription.textContent = unit.descricao || 'Adicione aqui a descrição desta unidade.';
     if (unitModalAddress) unitModalAddress.textContent = unit.endereco || 'Endereço não informado';
     if (unitModalPhone) unitModalPhone.textContent = unit.telefone || 'Não informado';
-    if (unitModalHours) unitModalHours.textContent = unit.horario || 'A definir';
+    if (unitModalHours) unitModalHours.textContent = unit.horario || 'Funcionamento 24h';
 
     if (unitModalMainImage) {
       unitModalMainImage.dataset.fallbackApplied = 'false';
@@ -325,7 +311,6 @@
   };
 
   if (homeUnitsList || unitModal) {
-    loadManualPhotos();
     fetch(`${pathPrefix}/data/postos.json`)
       .then((response) => response.json())
       .then((units) => {

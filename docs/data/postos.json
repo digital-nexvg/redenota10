@@ -7,7 +7,7 @@
 		"endereco": "Rua Cândido Benício, 687 - Campinho, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/joinha/principal.jpg",
 		"galeria": [
 			"assets/images/postos/joinha/galeria-1.jpg",
@@ -26,7 +26,7 @@
 		"endereco": "Av 22 de Maio, S/N, LT1, QD 88 - Retiro São Joaquim, Itaboraí - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/via-gas/principal.jpg",
 		"galeria": [
 			"assets/images/postos/via-gas/galeria-1.jpg",
@@ -45,13 +45,13 @@
 		"endereco": "Estrada do Mendanha, 4240 - Campo Grande, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/cremoneze/principal.jpg",
 		"galeria": [
-			"assets/images/postos/cremoneze/galeria-1.jpg",
-			"assets/images/postos/cremoneze/galeria-2.jpg",
-			"assets/images/postos/cremoneze/galeria-3.jpg"
-		],
+			"assets/images/postos/cremoneze/posto-1.jpg",
+			"assets/images/postos/cremoneze/posto-2.jpg",
+			"assets/images/postos/cremoneze/posto-3.jpg",	
+			"assets/images/postos/cremoneze/posto-4.jpg"],
 		"lat": -22.8625506,
 		"lng": -43.5411908,
 		"servicos": []
@@ -64,7 +64,7 @@
 		"endereco": "Rua Souza Barros, 636 - Engenho Novo, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/mega-engenho-novo/principal.jpg",
 		"galeria": [
 			"assets/images/postos/mega-engenho-novo/galeria-1.jpg",
@@ -83,7 +83,7 @@
 		"endereco": "Rua Barão do Bom Retiro, 1864 - Grajaú, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/grajau/principal.jpg",
 		"galeria": [
 			"assets/images/postos/grajau/galeria-1.jpg",
@@ -102,7 +102,7 @@
 		"endereco": "Av Ayrton Senna, S/N - Canteiro Central, Barra da Tijuca, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/senna/principal.jpg",
 		"galeria": [
 			"assets/images/postos/senna/galeria-1.jpg",
@@ -121,7 +121,7 @@
 		"endereco": "Av Luis Carlos Prestes, S/N - Barra da Tijuca, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
-		"horario": "A definir",
+		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/cruzada-peninsula/principal.jpg",
 		"galeria": [
 			"assets/images/postos/cruzada-peninsula/galeria-1.jpg",

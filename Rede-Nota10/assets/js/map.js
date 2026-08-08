@@ -101,7 +101,7 @@
     if (unitModalDescription) unitModalDescription.textContent = unit.descricao || 'Adicione aqui a descrição desta unidade.';
     if (unitModalAddress) unitModalAddress.textContent = unit.endereco || 'Endereço não informado';
     if (unitModalPhone) unitModalPhone.textContent = unit.telefone || 'Não informado';
-    if (unitModalHours) unitModalHours.textContent = unit.horario || 'A definir';
+    if (unitModalHours) unitModalHours.textContent = unit.horario || 'Funcionamento 24h';
 
     if (unitModalMainImage) {
       unitModalMainImage.dataset.fallbackApplied = 'false';
