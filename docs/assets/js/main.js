@@ -9,6 +9,9 @@
   const counterEls = document.querySelectorAll('[data-counter]');
   const promoSlides = document.querySelectorAll('[data-promo-slide]');
   const homeUnitsList = document.querySelector('[data-home-units-list]');
+  const contactUnitsList = document.querySelector('[data-contact-units]');
+  const quickCityInput = document.querySelector('[data-quick-city]');
+  const quickResults = document.querySelector('[data-quick-results]');
   const unitModal = document.querySelector('[data-unit-modal]');
   const unitModalTitle = document.querySelector('[data-unit-modal-title]');
   const unitModalCity = document.querySelector('[data-unit-modal-city]');
@@ -24,7 +27,7 @@
   const unitModalCounter = document.querySelector('[data-unit-modal-counter]');
   const unitModalFocusMapButton = document.querySelector('[data-unit-modal-focus-map]');
   const unitModalCloseTriggers = document.querySelectorAll('[data-close-unit-modal]');
-  const UNITS_CACHE_KEY = 'rn10_units_cache_v1';
+  const UNITS_CACHE_KEY = 'rn10_units_cache_v2';
   const UNITS_CACHE_TTL_MS = 1000 * 60 * 60 * 12;
   let unitsCache = [];
   let activeModalUnit = null;
@@ -185,6 +188,8 @@
     return [...new Set(unitImages)];
   };
 
+  const getUnitContactEmail = (unit) => String(unit?.emailContato || unit?.email || '').trim();
+
   const readUnitsCache = () => {
     try {
       const rawCache = localStorage.getItem(UNITS_CACHE_KEY);
@@ -344,6 +349,32 @@
     });
   };
 
+  const renderContactUnits = (units) => {
+    if (!contactUnitsList) return;
+
+    if (!Array.isArray(units) || !units.length) {
+      contactUnitsList.innerHTML = '<article class="card contact-card reveal"><p>Não foi possível carregar as unidades agora.</p></article>';
+      return;
+    }
+
+    contactUnitsList.innerHTML = units
+      .map((unit) => {
+        const email = getUnitContactEmail(unit);
+        const emailMarkup = email
+          ? `<a href="mailto:${email}">${email}</a>`
+          : '<span>Email a definir</span>';
+
+        return `
+          <article class="card contact-card contact-card--unit reveal">
+            <h3>${unit.nome}</h3>
+            <p>${formatPublicAddress(unit.endereco)}</p>
+            <p class="contact-card__email">${emailMarkup}</p>
+          </article>
+        `;
+      })
+      .join('');
+  };
+
   const syncHomeUnitsLayout = () => {
     if (!homeUnitsList) return;
 
@@ -356,9 +387,13 @@
     }
   };
 
-  if (homeUnitsList || unitModal) {
+  if (homeUnitsList || unitModal || contactUnitsList) {
     if (homeUnitsList) {
       homeUnitsList.innerHTML = '<article class="unit-item"><p>Carregando postos em destaque...</p></article>';
+    }
+
+    if (contactUnitsList) {
+      contactUnitsList.innerHTML = '<article class="card contact-card reveal"><p>Carregando unidades...</p></article>';
     }
 
     const cachedUnits = readUnitsCache();
@@ -367,6 +402,7 @@
     if (cachedUnits.length) {
       unitsCache = cachedUnits;
       renderHomeUnits(cachedUnits);
+      renderContactUnits(cachedUnits);
       syncHomeUnitsLayout();
       setupQuickCitySearch(cachedUnits);
       hasRenderedUnits = true;
@@ -379,6 +415,7 @@
         writeUnitsCache(units);
         try {
           renderHomeUnits(units);
+          renderContactUnits(units);
           syncHomeUnitsLayout();
           setupQuickCitySearch(units);
         } catch (error) {
@@ -390,6 +427,10 @@
       .catch(() => {
         if (homeUnitsList && !hasRenderedUnits) {
           homeUnitsList.innerHTML = '<article class="unit-item"><p>Não foi possível carregar os postos agora.</p></article>';
+        }
+
+        if (contactUnitsList && !hasRenderedUnits) {
+          contactUnitsList.innerHTML = '<article class="card contact-card reveal"><p>Não foi possível carregar as unidades agora.</p></article>';
         }
       });
   }
@@ -430,10 +471,7 @@
     lazyImages.forEach((img) => imageObserver.observe(img));
   }
 
-  const quickCityInput = document.querySelector('[data-quick-city]');
-  const quickResults = document.querySelector('[data-quick-results]');
-
-  const setupQuickCitySearch = (units) => {
+  function setupQuickCitySearch(units) {
     if (!quickCityInput || !quickResults) return;
 
     quickSearchUnits = Array.isArray(units) ? units : [];
@@ -563,5 +601,5 @@
         render([nearest], shortestDistance);
       }, 450);
     });
-  };
+  }
 })();

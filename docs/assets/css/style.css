@@ -692,6 +692,32 @@ body.inner-page .site-header .menu-toggle span {
   background: linear-gradient(125deg, var(--color-primary), var(--color-secondary));
 }
 
+.diff-card__media {
+  width: 44px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(125deg, var(--color-primary), var(--color-secondary));
+  display: grid;
+  place-items: center;
+}
+
+.diff-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.diff-card__media--wide {
+  width: 86px;
+  aspect-ratio: 16 / 9;
+}
+
+.diff-card__body h3 {
+  margin: 0;
+}
+
 .stats {
   background: linear-gradient(135deg, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
 }
@@ -1412,6 +1438,18 @@ body.modal-open {
 .unit-item h3,
 .card h3 {
   margin: 0 0 0.35rem;
+}
+
+.contact-card--unit {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.contact-card__email {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-primary);
+  word-break: break-word;
 }
 
 .contact-list li {
