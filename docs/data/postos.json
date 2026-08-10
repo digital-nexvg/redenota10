@@ -7,7 +7,7 @@
 		"endereco": "Rua Cândido Benício, 687 - Campinho, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"emailContato": "joinha@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/joinha/principal.jpg",
 		"galeria": [
@@ -27,7 +27,7 @@
 		"endereco": "Av 22 de Maio, S/N, LT1, QD 88 - Retiro São Joaquim, Itaboraí - RJ",
 		"telefone": "Não informado",
 		"emailContato": "via-gas@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/via-gas/principal.jpg",
 		"galeria": [
@@ -47,7 +47,7 @@
 		"endereco": "Estrada do Mendanha, 4240 - Campo Grande, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"emailContato": "cremoneze@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/cremoneze/principal.jpg",
 		"galeria": [
@@ -67,7 +67,7 @@
 		"endereco": "Rua Souza Barros, 636 - Engenho Novo, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"emailContato": "mega-engenho-novo@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/mega-engenho-novo/principal.jpg",
 		"galeria": [
@@ -87,7 +87,7 @@
 		"endereco": "Rua Barão do Bom Retiro, 1864 - Grajaú, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"emailContato": "grajau@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/grajau/principal.jpg",
 		"galeria": [
@@ -107,7 +107,7 @@
 		"endereco": "Av Ayrton Senna, S/N - Canteiro Central, Barra da Tijuca, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"emailContato": "senna@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/senna/principal.jpg",
 		"galeria": [
@@ -127,7 +127,7 @@
 		"endereco": "Av Luis Carlos Prestes, S/N - Barra da Tijuca, Rio de Janeiro - RJ",
 		"telefone": "Não informado",
 		"emailContato": "cruzada-peninsula@redenota10.com.br",
-		"descricao": "Adicione aqui a descrição, os diferenciais e os serviços desta unidade.",
+		"descricao": "",
 		"horario": "Funcionamento 24h",
 		"imagemPrincipal": "assets/images/postos/cruzada-peninsula/principal.jpg",
 		"galeria": [
