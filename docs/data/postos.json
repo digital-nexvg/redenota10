@@ -17,7 +17,7 @@
 		],
 		"lat": -22.9106942,
 		"lng": -43.3602137,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	},
 	{
 		"id": 2,
@@ -37,7 +37,7 @@
 		],
 		"lat": -22.7544541,
 		"lng": -42.8905956,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	},
 	{
 		"id": 3,
@@ -57,7 +57,7 @@
 			"assets/images/postos/cremoneze/posto-4.jpg"],
 		"lat": -22.8625506,
 		"lng": -43.5411908,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	},
 	{
 		"id": 4,
@@ -77,7 +77,7 @@
 		],
 		"lat": -22.9000102,
 		"lng": -43.2645151,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	},
 	{
 		"id": 5,
@@ -97,7 +97,7 @@
 		],
 		"lat": -22.9195915,
 		"lng": -43.2613571,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	},
 	{
 		"id": 6,
@@ -117,7 +117,7 @@
 		],
 		"lat": -23.0031878,
 		"lng": -43.3661175,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	},
 	{
 		"id": 7,
@@ -137,6 +137,6 @@
 		],
 		"lat": -22.996141,
 		"lng": -43.3572454,
-		"servicos": []
+		"servicos": ["Loja de Conveniência", "Banheiro"]
 	}
 ]
