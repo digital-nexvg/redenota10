@@ -9,7 +9,8 @@
   const counterEls = document.querySelectorAll('[data-counter]');
   const promoSlides = document.querySelectorAll('[data-promo-slide]');
   const homeUnitsList = document.querySelector('[data-home-units-list]');
-  const contactUnitsList = document.querySelector('[data-contact-units]');
+  const contactUnitSelect = document.querySelector('[data-contact-unit-select]');
+  const contactUnitDetails = document.querySelector('[data-contact-unit-details]');
   const quickCityInput = document.querySelector('[data-quick-city]');
   const quickResults = document.querySelector('[data-quick-results]');
   const unitModal = document.querySelector('[data-unit-modal]');
@@ -350,29 +351,46 @@
   };
 
   const renderContactUnits = (units) => {
-    if (!contactUnitsList) return;
+    if (!contactUnitSelect || !contactUnitDetails) return;
 
     if (!Array.isArray(units) || !units.length) {
-      contactUnitsList.innerHTML = '<article class="card contact-card reveal"><p>Não foi possível carregar as unidades agora.</p></article>';
+      contactUnitSelect.innerHTML = '<option value="">Nenhuma unidade disponível</option>';
+      contactUnitDetails.innerHTML = '<p>Não foi possível carregar as unidades agora.</p>';
       return;
     }
 
-    contactUnitsList.innerHTML = units
-      .map((unit) => {
-        const email = getUnitContactEmail(unit);
-        const emailMarkup = email
-          ? `<a href="mailto:${email}">${email}</a>`
-          : '<span>Email a definir</span>';
+    const sortedUnits = [...units].sort((a, b) => String(a?.nome || '').localeCompare(String(b?.nome || ''), 'pt-BR'));
 
-        return `
-          <article class="card contact-card contact-card--unit reveal">
-            <h3>${unit.nome}</h3>
-            <p>${formatPublicAddress(unit.endereco)}</p>
-            <p class="contact-card__email">${emailMarkup}</p>
-          </article>
-        `;
-      })
-      .join('');
+    contactUnitSelect.innerHTML = [
+      '<option value="">Selecione uma unidade</option>',
+      ...sortedUnits.map((unit) => `<option value="${unit.id}">${unit.nome}</option>`)
+    ].join('');
+
+    contactUnitDetails.innerHTML = '<p>Selecione uma unidade para visualizar os dados de contato.</p>';
+
+    const renderSelectedUnit = () => {
+      const selectedId = Number(contactUnitSelect.value);
+      const selectedUnit = sortedUnits.find((unit) => Number(unit.id) === selectedId);
+
+      if (!selectedUnit) {
+        contactUnitDetails.innerHTML = '<p>Selecione uma unidade para visualizar os dados de contato.</p>';
+        return;
+      }
+
+      const email = getUnitContactEmail(selectedUnit);
+      const emailMarkup = email
+        ? `<a href="mailto:${email}">${email}</a>`
+        : '<span>Email a definir</span>';
+
+      contactUnitDetails.innerHTML = `
+        <h3>${selectedUnit.nome}</h3>
+        <p>${formatPublicAddress(selectedUnit.endereco)}</p>
+        <p class="contact-card__email">${emailMarkup}</p>
+      `;
+    };
+
+    contactUnitSelect.onchange = renderSelectedUnit;
+    renderSelectedUnit();
   };
 
   const syncHomeUnitsLayout = () => {
@@ -387,13 +405,14 @@
     }
   };
 
-  if (homeUnitsList || unitModal || contactUnitsList) {
+  if (homeUnitsList || unitModal || contactUnitSelect) {
     if (homeUnitsList) {
       homeUnitsList.innerHTML = '<article class="unit-item"><p>Carregando postos em destaque...</p></article>';
     }
 
-    if (contactUnitsList) {
-      contactUnitsList.innerHTML = '<article class="card contact-card reveal"><p>Carregando unidades...</p></article>';
+    if (contactUnitSelect && contactUnitDetails) {
+      contactUnitSelect.innerHTML = '<option value="">Carregando unidades...</option>';
+      contactUnitDetails.innerHTML = '<p>Carregando unidades...</p>';
     }
 
     const cachedUnits = readUnitsCache();
@@ -429,8 +448,9 @@
           homeUnitsList.innerHTML = '<article class="unit-item"><p>Não foi possível carregar os postos agora.</p></article>';
         }
 
-        if (contactUnitsList && !hasRenderedUnits) {
-          contactUnitsList.innerHTML = '<article class="card contact-card reveal"><p>Não foi possível carregar as unidades agora.</p></article>';
+        if (contactUnitSelect && contactUnitDetails && !hasRenderedUnits) {
+          contactUnitSelect.innerHTML = '<option value="">Nenhuma unidade disponível</option>';
+          contactUnitDetails.innerHTML = '<p>Não foi possível carregar as unidades agora.</p>';
         }
       });
   }
