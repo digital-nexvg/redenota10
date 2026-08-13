@@ -17,7 +17,7 @@
 		],
 		"lat": -22.9106942,
 		"lng": -43.3602137,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
 		"id": 2,
@@ -37,7 +37,7 @@
 		],
 		"lat": -22.7544541,
 		"lng": -42.8905956,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Troca de óleo", "Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
 		"id": 3,
@@ -57,7 +57,7 @@
 			"assets/images/postos/cremoneze/posto-4.jpg"],
 		"lat": -22.8625506,
 		"lng": -43.5411908,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Troca de óleo", "Loja de conveniência", "GNV", "Diesel S10", "Diesel S500"]
 	},
 	{
 		"id": 4,
@@ -77,7 +77,7 @@
 		],
 		"lat": -22.9000102,
 		"lng": -43.2645151,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Troca de óleo", "Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
 		"id": 5,
@@ -97,7 +97,7 @@
 		],
 		"lat": -22.9195915,
 		"lng": -43.2613571,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
 		"id": 6,
@@ -117,7 +117,7 @@
 		],
 		"lat": -23.0031878,
 		"lng": -43.3661175,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Lavagem", "Troca de óleo", "Loja de conveniência", "Recarga rápida", "GNV", "Diesel S10"]
 	},
 	{
 		"id": 7,
@@ -137,6 +137,6 @@
 		],
 		"lat": -22.996141,
 		"lng": -43.3572454,
-		"servicos": ["Loja de Conveniência", "Banheiro", "iFood", "99 entrega", "KMV"]
+		"servicos": ["Lavagem", "Troca de óleo", "Loja de conveniência", "Diesel S10"]
 	}
 ]

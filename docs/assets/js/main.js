@@ -5,6 +5,8 @@
   const preloader = document.querySelector('[data-preloader]');
   const backToTopBtn = document.querySelector('[data-back-to-top]');
   const heroSection = document.querySelector('.hero');
+  const heroSlides = document.querySelectorAll('[data-hero-slide]');
+  const heroDots = document.querySelectorAll('[data-hero-dot]');
   const yearEl = document.querySelector('[data-current-year]');
   const counterEls = document.querySelectorAll('[data-counter]');
   const promoSlides = document.querySelectorAll('[data-promo-slide]');
@@ -142,6 +144,40 @@
       active = (active + 1) % promoSlides.length;
       promoSlides[active].classList.add('active');
     }, 5000);
+  }
+
+  if (heroSlides.length > 1) {
+    let activeHeroSlide = 0;
+    let heroTimer;
+
+    const showHeroSlide = (index) => {
+      activeHeroSlide = (index + heroSlides.length) % heroSlides.length;
+      heroSlides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('active', slideIndex === activeHeroSlide);
+      });
+      heroDots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === activeHeroSlide;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-current', String(isActive));
+      });
+    };
+
+    const restartHeroTimer = () => {
+      window.clearInterval(heroTimer);
+      heroTimer = window.setInterval(() => {
+        showHeroSlide(activeHeroSlide + 1);
+      }, 3500);
+    };
+
+    heroDots.forEach((dot, dotIndex) => {
+      dot.addEventListener('click', () => {
+        showHeroSlide(dotIndex);
+        restartHeroTimer();
+      });
+    });
+
+    showHeroSlide(activeHeroSlide);
+    restartHeroTimer();
   }
 
   const resolveAssetPath = (assetPath) => {

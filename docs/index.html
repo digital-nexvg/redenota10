@@ -52,44 +52,25 @@
     
 
       <section class="hero" aria-label="Destaque principal">
-        <div class="hero-fallback" style="background-image: url('assets/images/logo/cremo.jpg');"></div>
-
-        <div class="container hero-content">
-          <div class="hero-promo-stack" aria-label="Promoções futuras">
-            <div class="hero-promo-card">
-              <img src="assets/images/banners/promo-1.svg" alt="Campanha promocional 1">
-              <div class="hero-promo-card__content">
-                <span class="eyebrow">Próximas campanhas</span>
-                <h3>Promoções saindo do forno</h3>
-                <p>Adicione novas fotos na pasta de banners para trocar este slide.</p>
-              </div>
-            </div>
-            <div class="hero-promo-card">
-              <img src="assets/images/banners/promo-2.svg" alt="Campanha promocional 2">
-              <div class="hero-promo-card__content">
-                <span class="eyebrow">Futuro da rede</span>
-                <h3>Novidades para os clientes</h3>
-                <p>Use imagens em alta resolução para criar uma propaganda mais forte.</p>
-              </div>
-            </div>
-            <div class="hero-promo-card">
-              <img src="assets/images/banners/promo-3.svg" alt="Campanha promocional 3">
-              <div class="hero-promo-card__content">
-                <span class="eyebrow">Em breve</span>
-                <h3>Mais ofertas em cada unidade</h3>
-                <p>Troque os arquivos de banner e o slideshow já atualiza automaticamente.</p>
-              </div>
-            </div>
+        <div class="hero-fallback" data-hero-carousel aria-label="Imagens em destaque">
+          <div class="hero-slide active" data-hero-slide>
+            <picture><source media="(max-width: 760px)" srcset="assets/images/logo/hero-menu.jpg"><img src="assets/images/logo/cremo.jpg" alt="" fetchpriority="high"></picture>
           </div>
-
-          <div class="hero-copy">
-            <h1>Rede Nota 10</h1>
-            <p>A rede de postos que coloca você em primeiro lugar.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="pages/unidades.html">Encontrar uma unidade</a>
-              <a class="btn btn-ghost" href="pages/contato.html">Fale conosco</a>
-            </div>
+          <div class="hero-slide" data-hero-slide>
+            <picture><source media="(max-width: 760px)" srcset="assets/images/postos/cremoneze/posto-2.jpg"><img src="assets/images/postos/cremoneze/posto-2.jpg" alt=""></picture>
           </div>
+          <div class="hero-slide" data-hero-slide>
+            <picture><source media="(max-width: 760px)" srcset="assets/images/postos/via-gas/principal.jpg"><img src="assets/images/postos/via-gas/principal.jpg" alt=""></picture>
+          </div>
+          <div class="hero-slide" data-hero-slide>
+            <picture><source media="(max-width: 760px)" srcset="assets/images/postos/cruzada-peninsula/principal.jpg"><img src="assets/images/postos/cruzada-peninsula/principal.jpg" alt=""></picture>
+          </div>
+        </div>
+        <div class="hero-carousel-dots" data-hero-dots aria-label="Selecionar imagem do destaque">
+          <button class="hero-carousel-dot active" type="button" data-hero-dot aria-label="Mostrar imagem 1" aria-current="true"><span></span></button>
+          <button class="hero-carousel-dot" type="button" data-hero-dot aria-label="Mostrar imagem 2" aria-current="false"><span></span></button>
+          <button class="hero-carousel-dot" type="button" data-hero-dot aria-label="Mostrar imagem 3" aria-current="false"><span></span></button>
+          <button class="hero-carousel-dot" type="button" data-hero-dot aria-label="Mostrar imagem 4" aria-current="false"><span></span></button>
         </div>
       </section>
 

@@ -54,7 +54,7 @@ body::before {
 }
 
 .site-header {
-  background: linear-gradient(135deg, rgba(30, 165, 91, 0.92) 0%, rgba(43, 192, 106, 0.9) 48%, rgba(15, 97, 53, 0.95) 100%);
+  background: #ffffff;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -187,11 +187,11 @@ ul {
   height: clamp(92px, 11.5vw, 120px);
   width: auto;
   object-fit: contain;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 255, 0.96));
-  border: 1px solid rgba(90, 45, 189, 0.24);
-  padding: 0.18rem 0.5rem;
-  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.12), 0 0 0 1px rgba(255, 122, 26, 0.12) inset;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
 }
 
 .site-header .menu-toggle {
@@ -287,7 +287,7 @@ body.inner-page .site-header .main-nav a.active {
 }
 
 .site-header.is-transparent {
-  background: linear-gradient(90deg, rgba(15, 97, 53, 0.94) 0%, rgba(30, 165, 91, 0.92) 34%, rgba(43, 192, 106, 0.84) 68%, rgba(255,255,255,0.96) 100%);
+  background: #ffffff;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -298,10 +298,16 @@ body.inner-page .site-header .main-nav a.active {
 }
 
 .site-header.scrolled,
+body.inner-page .site-header.scrolled {
+  background: #ffffff;
+  border-bottom: none;
+  box-shadow: 0 8px 28px rgba(17, 23, 38, 0.08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 body.inner-page .site-header {
   background: #ffffff;
-  box-shadow: 0 8px 28px rgba(17, 23, 38, 0.12);
-  backdrop-filter: blur(10px);
 }
 
 .site-header.scrolled .menu-toggle,
@@ -433,10 +439,6 @@ body.inner-page .site-header .menu-toggle span {
 
 .hero .hero-fallback {
   display: block;
-  background-image: linear-gradient(90deg, rgba(7, 16, 36, 0.18), rgba(7, 16, 36, 0.28)), url('../images/logo/cremo.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
   width: min(100%, var(--hero-shell-max));
   height: auto;
   inset: auto;
@@ -449,22 +451,97 @@ body.inner-page .site-header .menu-toggle span {
   box-shadow: 0 20px 60px rgba(7, 16, 36, 0.26);
 }
 
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.hero-slide picture,
+.hero-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-carousel-dots {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  transform: translateX(-50%);
+}
+
+.hero-carousel-dot {
+  width: 34px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hero-carousel-dot span {
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 2px 8px rgba(5, 12, 24, 0.28);
+  transition: width 240ms ease, background-color 240ms ease;
+}
+
+.hero-carousel-dot.active span,
+.hero-carousel-dot:hover span,
+.hero-carousel-dot:focus-visible span {
+  background: #ffffff;
+}
+
+.hero-carousel-dot.active span {
+  width: 100%;
+  height: 6px;
+}
+
+.hero-carousel-dot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 @media (max-width: 760px) {
   .hero {
     background: transparent;
   }
 
   .hero .hero-fallback {
-    background-image: linear-gradient(90deg, rgba(7, 16, 36, 0.24), rgba(7, 16, 36, 0.34)), url('../images/logo/hero-menu.jpg') !important;
-    background-position: center center !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
     width: 100% !important;
     height: 100% !important;
     inset: 0 !important;
     border-radius: 0 !important;
     transform: none !important;
     box-shadow: none !important;
+  }
+
+  .hero-slide img {
+    object-position: 88% center;
+  }
+
+  .hero-carousel-dots {
+    bottom: 1.25rem;
   }
 }
 
@@ -477,12 +554,12 @@ body.inner-page .site-header .menu-toggle span {
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, rgba(2, 10, 25, 0.72) 0%, rgba(2, 10, 25, 0.42) 42%, rgba(2, 10, 25, 0.16) 100%);
-  z-index: 0;
+  z-index: 1;
 }
 
 .hero .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   color: #fff;
   display: grid;
   gap: 1.8rem;
