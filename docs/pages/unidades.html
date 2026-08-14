@@ -14,8 +14,8 @@
     <link rel="icon" type="image/svg+xml" href="../assets/images/logo/favicon.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="../assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon" href="../assets/images/logo/favicon.svg">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20260814b">
+    <link rel="stylesheet" href="../assets/css/responsive.css?v=20260814f">
     <link rel="stylesheet" href="../assets/css/animations.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   </head>
@@ -27,6 +27,7 @@
     <header class="site-header" data-header>
       <div class="container header-wrap">
         <a class="logo-link" href="../index.html"><img src="../assets/images/logo/logo1.jpg" alt="Logo Rede Nota 10"></a>
+        <a class="mobile-unit-link" href="unidades.html?localizar=1">Encontrar posto</a>
         <button class="menu-toggle" data-menu-toggle aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav"><span></span></button>
         <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
           <ul>
@@ -36,33 +37,37 @@
             <li><a data-nav-link href="avaliacoes.html">Avaliações</a></li>
             <li><a data-nav-link href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
             <li><a data-nav-link href="contato.html">Contato</a></li>
-            <li class="nav-cta"><a data-nav-link href="unidades.html">Encontrar uma unidade</a></li>
           </ul>
         </nav>
+        <a class="desktop-unit-link" href="unidades.html?localizar=1">Encontrar Posto</a>
       </div>
     </header>
 
     <main id="conteudo">
-      <section class="inner-hero">
-        <div class="container reveal">
-          <h1>Onde Estamos</h1>
-          <p>Localize as unidades da Rede Nota 10 no Rio de Janeiro com endereço, telefone e rota no mapa.</p>
-        </div>
-      </section>
+      
 
-      <section class="section">
-        <div class="container">
-          <div class="section-head reveal">
+      <section class="section units-finder-section">
+        <div class="container units-finder">
+          <div class="section-head reveal units-finder__heading">
             <span class="eyebrow">Busca e filtro</span>
             <h2>Encontre sua unidade com rapidez</h2>
           </div>
 
+          <div class="map-shell reveal">
+            <div id="map" role="region" aria-label="Mapa das unidades Rede Nota 10"></div>
+          </div>
+
           <div class="search-shell reveal">
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="address-input">Digite o endereço onde você está</label>
-                <input id="address-input" type="search" placeholder="Ex.: Rua das Laranjeiras, 120 - Rio de Janeiro" data-address-input>
+            <div class="search-toolbar">
+              <div class="address-search">
+                <span aria-hidden="true">⌕</span>
+                <label class="sr-only" for="address-input">Preencha endereço, CEP ou cidade</label>
+                <input id="address-input" type="search" placeholder="Preencha endereço, CEP ou cidade" data-address-input>
               </div>
+              <button class="filter-toggle" type="button" data-filter-toggle aria-expanded="false" aria-controls="unit-filters" aria-label="Abrir filtros" title="Abrir filtros"></button>
+            </div>
+
+            <div class="unit-filters" id="unit-filters" data-unit-filters hidden>
               <div class="form-field">
                 <label for="service-filter">Filtrar por serviço</label>
                 <select id="service-filter" data-service-filter>
@@ -76,20 +81,15 @@
                   <option value="Diesel S500">Diesel S500</option>
                 </select>
               </div>
-              <div class="form-field full">
-                <button class="btn btn-primary" type="button" data-find-nearest>Encontrar posto mais próximo</button>
-                <p data-nearest-result></p>
-              </div>
+            </div>
+
+            <div class="quick-location-actions">
+              <button class="btn btn-primary" type="button" data-find-nearest>Encontrar posto mais próximo</button>
+              <button class="btn btn-secondary" type="button" data-use-location>Usar minha localização</button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section class="section">
-        <div class="container">
-          <div class="map-shell reveal">
-            <div id="map" role="region" aria-label="Mapa das unidades Rede Nota 10"></div>
-          </div>
+          <p class="nearest-result-panel" data-nearest-result></p>
         </div>
       </section>
 
@@ -187,7 +187,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="../assets/js/menu.js?v=20260803k" defer></script>
     <script src="../assets/js/main.js?v=20260806a" defer></script>
-    <script src="../assets/js/map.js?v=20260803k" defer></script>
+    <script src="../assets/js/map.js?v=20260814k" defer></script>
     <script src="../assets/js/animations.js?v=20260803k" defer></script>
   </body>
 </html>

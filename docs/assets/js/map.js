@@ -4,6 +4,9 @@
   const addressInput = document.querySelector('[data-address-input]');
   const serviceFilterSelect = document.querySelector('[data-service-filter]');
   const findNearestButton = document.querySelector('[data-find-nearest]');
+  const useLocationButton = document.querySelector('[data-use-location]');
+  const filterToggle = document.querySelector('[data-filter-toggle]');
+  const unitFilters = document.querySelector('[data-unit-filters]');
   const nearestResult = document.querySelector('[data-nearest-result]');
   const unitModal = document.querySelector('[data-unit-modal]');
   const unitModalTitle = document.querySelector('[data-unit-modal-title]');
@@ -218,6 +221,17 @@
     renderUnitList(filtered);
   };
 
+  const focusNearestMarker = (marker) => {
+    if (!marker || !map) return;
+
+    const isMobile = window.matchMedia('(max-width: 959px)').matches;
+    map.setView(marker.getLatLng(), isMobile ? 11 : 12, { animate: !isMobile });
+    marker.openPopup();
+    if (isMobile) {
+      window.setTimeout(() => map.panBy([0, -100], { animate: true }), 80);
+    }
+  };
+
   const findNearestUnit = async () => {
     const rawAddress = addressInput ? addressInput.value.trim() : '';
 
@@ -261,10 +275,7 @@
     renderUnitList([nearest]);
 
     const nearestMarker = markerMap.get(nearest.id);
-    if (nearestMarker && map) {
-      map.setView(nearestMarker.getLatLng(), 14, { animate: true });
-      nearestMarker.openPopup();
-    }
+    focusNearestMarker(nearestMarker);
 
     if (map) {
       if (originMarker) map.removeLayer(originMarker);
@@ -290,6 +301,73 @@
     }
   };
 
+  const useCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      if (nearestResult) nearestResult.textContent = 'Seu navegador não permite usar a localização automática.';
+      return;
+    }
+
+    useLocationButton?.setAttribute('disabled', 'disabled');
+    if (nearestResult) nearestResult.textContent = 'Solicitando sua localização...';
+
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        useLocationButton?.removeAttribute('disabled');
+
+        const serviceTerm = serviceFilterSelect ? serviceFilterSelect.value : '';
+        const pool = unitsCache.filter((unit) => !serviceTerm || unit.servicos.includes(serviceTerm));
+
+        if (!pool.length) {
+          renderUnitList([]);
+          if (nearestResult) nearestResult.textContent = 'Nenhuma unidade disponível para o filtro de serviço selecionado.';
+          return;
+        }
+
+        const origin = { lat: coords.latitude, lng: coords.longitude };
+        let nearest = pool[0];
+        let shortestDistance = calculateDistanceKm(origin.lat, origin.lng, nearest.lat, nearest.lng);
+
+        pool.slice(1).forEach((unit) => {
+          const distance = calculateDistanceKm(origin.lat, origin.lng, unit.lat, unit.lng);
+          if (distance < shortestDistance) {
+            shortestDistance = distance;
+            nearest = unit;
+          }
+        });
+
+        renderUnitList([nearest]);
+
+        const nearestMarker = markerMap.get(nearest.id);
+        focusNearestMarker(nearestMarker);
+
+        if (map) {
+          if (originMarker) map.removeLayer(originMarker);
+          originMarker = L.marker([origin.lat, origin.lng]).addTo(map);
+          originMarker.bindPopup('<strong>Sua localização atual</strong>');
+        }
+
+        const destination = `${nearest.lat},${nearest.lng}`;
+        const originPoint = `${origin.lat},${origin.lng}`;
+        const googleRoute = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originPoint)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+        const wazeRoute = `https://www.waze.com/ul?ll=${nearest.lat}%2C${nearest.lng}&navigate=yes`;
+
+        if (nearestResult) {
+          nearestResult.innerHTML = `
+            <strong>Posto mais próximo:</strong> ${nearest.nome} (aprox. ${shortestDistance.toFixed(1)} km).<br>
+            <strong>Endereço:</strong> ${formatPublicAddress(nearest.endereco)}<br>
+            <a href="${googleRoute}" target="_blank" rel="noopener noreferrer">Traçar rota no Google Maps</a> |
+            <a href="${wazeRoute}" target="_blank" rel="noopener noreferrer">Abrir no Waze</a>
+          `;
+        }
+      },
+      () => {
+        useLocationButton?.removeAttribute('disabled');
+        if (nearestResult) nearestResult.textContent = 'Não foi possível acessar sua localização. Verifique a permissão do navegador.';
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+    );
+  };
+
   const setupMap = (units) => {
     if (!mapElement || typeof window.L === 'undefined') return;
 
@@ -310,7 +388,7 @@
         ${unit.telefone}<br><br>
         <a href="${googleRoute}" target="_blank" rel="noopener noreferrer">Rota no Google Maps</a><br>
         <a href="${wazeRoute}" target="_blank" rel="noopener noreferrer">Abrir no Waze</a>
-      `);
+      `, { autoPan: false });
       markerMap.set(unit.id, marker);
     });
   };
@@ -323,6 +401,13 @@
       renderUnitList(units);
 
       findNearestButton?.addEventListener('click', findNearestUnit);
+      useLocationButton?.addEventListener('click', useCurrentLocation);
+      filterToggle?.addEventListener('click', () => {
+        if (!unitFilters) return;
+        const isExpanded = filterToggle.getAttribute('aria-expanded') === 'true';
+        filterToggle.setAttribute('aria-expanded', String(!isExpanded));
+        unitFilters.hidden = isExpanded;
+      });
       addressInput?.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           event.preventDefault();
@@ -330,6 +415,12 @@
         }
       });
       serviceFilterSelect?.addEventListener('change', applyFilters);
+
+      const shouldLocateUser = new URLSearchParams(window.location.search).get('localizar') === '1';
+      if (shouldLocateUser) {
+        document.querySelector('.units-finder-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        useCurrentLocation();
+      }
     })
     .catch(() => {
       if (listElement) {

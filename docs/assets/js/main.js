@@ -15,6 +15,8 @@
   const contactUnitDetails = document.querySelector('[data-contact-unit-details]');
   const quickCityInput = document.querySelector('[data-quick-city]');
   const quickResults = document.querySelector('[data-quick-results]');
+  const confirmLocationButton = document.querySelector('[data-confirm-location]');
+  const useLocationButton = document.querySelector('[data-use-location]');
   const unitModal = document.querySelector('[data-unit-modal]');
   const unitModalTitle = document.querySelector('[data-unit-modal-title]');
   const unitModalCity = document.querySelector('[data-unit-modal-city]');
@@ -355,13 +357,14 @@
     unitModal.querySelector('.unit-modal__close')?.focus();
   };
 
-  const renderHomeUnits = (units) => {
+  const renderHomeUnits = (units, nearestUnitId = null) => {
     if (!homeUnitsList) return;
 
     homeUnitsList.innerHTML = units
       .map(
         (unit) => `
-          <article class="unit-item" data-home-unit-id="${unit.id}">
+          <article class="unit-item${Number(unit.id) === Number(nearestUnitId) ? ' unit-item--nearest' : ''}" data-home-unit-id="${unit.id}">
+            ${Number(unit.id) === Number(nearestUnitId) ? '<span class="unit-item__badge">Posto mais próximo</span>' : ''}
             <img class="unit-thumb" loading="lazy" decoding="async" fetchpriority="low" src="${resolveAssetPath(unit.imagemPrincipal) || `${pathPrefix}/assets/images/banners/hero-fallback.svg`}" alt="Foto principal de ${unit.nome}">
             <div class="unit-item__body">
               <h3>${unit.nome}</h3>
@@ -563,6 +566,71 @@
         })
         .catch(() => null);
     };
+
+    const renderNearestUnits = (origin) => {
+      const rankedUnits = [...quickSearchUnits].sort((firstUnit, secondUnit) => {
+        const firstDistance = calculateDistanceKm(origin.lat, origin.lng, firstUnit.lat, firstUnit.lng);
+        const secondDistance = calculateDistanceKm(origin.lat, origin.lng, secondUnit.lat, secondUnit.lng);
+        return firstDistance - secondDistance;
+      });
+      const nearestUnit = rankedUnits[0];
+      const nearestDistance = calculateDistanceKm(origin.lat, origin.lng, nearestUnit.lat, nearestUnit.lng);
+
+      renderHomeUnits(rankedUnits, nearestUnit.id);
+      quickResults.innerHTML = `<li><strong>${nearestUnit.nome}</strong> é o posto mais próximo da sua localização (${nearestDistance.toFixed(1)} km).</li>`;
+      quickResults.hidden = false;
+    };
+
+    const confirmNearestLocation = async () => {
+      const term = quickCityInput.value.trim();
+
+      if (!term) {
+        quickResults.hidden = false;
+        quickResults.innerHTML = '<li>Digite seu bairro ou endereço para confirmar a localização.</li>';
+        quickCityInput.focus();
+        return;
+      }
+
+      confirmLocationButton?.setAttribute('disabled', 'disabled');
+      quickResults.hidden = false;
+      quickResults.innerHTML = '<li>Confirmando localização...</li>';
+
+      const origin = await geocodeAddress(term);
+      confirmLocationButton?.removeAttribute('disabled');
+
+      if (!origin) {
+        quickResults.innerHTML = '<li>Não foi possível localizar esse endereço. Tente informar bairro e cidade.</li>';
+        return;
+      }
+
+      renderNearestUnits(origin);
+    };
+
+    confirmLocationButton?.addEventListener('click', confirmNearestLocation);
+
+    useLocationButton?.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        quickResults.hidden = false;
+        quickResults.innerHTML = '<li>Seu navegador não permite usar a localização automática.</li>';
+        return;
+      }
+
+      useLocationButton.setAttribute('disabled', 'disabled');
+      quickResults.hidden = false;
+      quickResults.innerHTML = '<li>Solicitando sua localização...</li>';
+
+      navigator.geolocation.getCurrentPosition(
+        ({ coords }) => {
+          useLocationButton.removeAttribute('disabled');
+          renderNearestUnits({ lat: coords.latitude, lng: coords.longitude });
+        },
+        () => {
+          useLocationButton.removeAttribute('disabled');
+          quickResults.innerHTML = '<li>Não foi possível acessar sua localização. Verifique a permissão do navegador.</li>';
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+      );
+    });
 
     const normalizeText = (value) =>
       String(value ?? '')

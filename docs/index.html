@@ -14,8 +14,8 @@
     <link rel="icon" type="image/webp" href="assets/images/logo/favicon.webp">
     <link rel="shortcut icon" type="image/webp" href="assets/images/logo/favicon.webp">
     <link rel="apple-touch-icon" href="assets/images/logo/favicon.webp">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260808a">
-    <link rel="stylesheet" href="assets/css/responsive.css?v=20260808a">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260814g">
+    <link rel="stylesheet" href="assets/css/responsive.css?v=20260814d">
     <link rel="stylesheet" href="assets/css/animations.css?v=20260808a">
   </head>
   <body>
@@ -31,6 +31,8 @@
           <img src="assets/images/logo/logo1.jpg" alt="Logo Rede Nota 10" loading="eager">
         </a>
 
+        <a class="mobile-unit-link" href="pages/unidades.html?localizar=1">Encontrar posto</a>
+
         <button class="menu-toggle" data-menu-toggle aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="main-nav">
           <span></span>
         </button>
@@ -39,13 +41,12 @@
           <ul>
             <li><a class="active" data-nav-link href="index.html">Home</a></li>
             <li><a data-nav-link href="pages/sobre.html">Sobre Nós</a></li>
-            <li><a data-nav-link href="pages/unidades.html">Onde Estamos</a></li>
             <li><a data-nav-link href="pages/avaliacoes.html">Avaliações</a></li>
             <li><a data-nav-link href="pages/trabalhe-conosco.html">Trabalhe Conosco</a></li>
-            <li><a data-nav-link href="pages/contato.html">Contato</a></li>
-            <li class="nav-cta"><a data-nav-link href="pages/unidades.html">Encontrar uma unidade</a></li>
+            <li><a data-nav-link href="pages/unidades.html">Onde Estamos</a></li>
           </ul>
         </nav>
+        <a class="desktop-unit-link" href="pages/unidades.html?localizar=1">Encontrar Posto</a>
       </div>
     </header>
 
@@ -54,16 +55,16 @@
       <section class="hero" aria-label="Destaque principal">
         <div class="hero-fallback" data-hero-carousel aria-label="Imagens em destaque">
           <div class="hero-slide active" data-hero-slide>
-            <picture><source media="(max-width: 760px)" srcset="assets/images/logo/hero-menu.jpg"><img src="assets/images/logo/cremo.jpg" alt="" fetchpriority="high"></picture>
+            <picture><source media="(max-width: 768px)" srcset="assets/images/logo/hero-menu.jpg"><img src="assets/images/logo/cremo.jpg" alt="Promoção Rede Nota 10" fetchpriority="high"></picture>
           </div>
           <div class="hero-slide" data-hero-slide>
-            <picture><source media="(max-width: 760px)" srcset="assets/images/postos/cremoneze/posto-2.jpg"><img src="assets/images/postos/cremoneze/posto-2.jpg" alt=""></picture>
+            <picture><source media="(max-width: 768px)" srcset="assets/images/home-hero/promo.jpg"><img src="assets/images/home-hero/promodesk.jpg" alt="Promoção Rede Nota 10"></picture>
           </div>
           <div class="hero-slide" data-hero-slide>
-            <picture><source media="(max-width: 760px)" srcset="assets/images/postos/via-gas/principal.jpg"><img src="assets/images/postos/via-gas/principal.jpg" alt=""></picture>
+            <picture><source media="(max-width: 768px)" srcset="assets/images/postos/via-gas/principal.jpg"><img src="assets/images/postos/via-gas/principal.jpg" alt="Posto Via Gás"></picture>
           </div>
           <div class="hero-slide" data-hero-slide>
-            <picture><source media="(max-width: 760px)" srcset="assets/images/postos/cruzada-peninsula/principal.jpg"><img src="assets/images/postos/cruzada-peninsula/principal.jpg" alt=""></picture>
+            <picture><source media="(max-width: 768px)" srcset="assets/images/postos/cruzada-peninsula/principal.jpg"><img src="assets/images/postos/cruzada-peninsula/principal.jpg" alt="Posto Cruzada Península"></picture>
           </div>
         </div>
         <div class="hero-carousel-dots" data-hero-dots aria-label="Selecionar imagem do destaque">
@@ -86,6 +87,10 @@
           <div class="search-shell reveal" role="search">
             <label for="quick-city">Digite seu bairro</label>
             <input id="quick-city" type="search" placeholder="Ex.: Campo Grande" data-quick-city>
+            <div class="quick-location-actions">
+              <button class="btn btn-primary" type="button" data-confirm-location>Confirmar localização</button>
+              <button class="btn btn-secondary" type="button" data-use-location>Usar minha localização</button>
+            </div>
             <ul class="quick-results" data-quick-results></ul>
           </div>
         </div>
@@ -282,7 +287,7 @@
     <button class="back-to-top" data-back-to-top aria-label="Voltar ao topo">↑</button>
 
     <script src="assets/js/menu.js?v=20260806a" defer></script>
-    <script src="assets/js/main.js?v=20260806a" defer></script>
+    <script src="assets/js/main.js?v=20260814d" defer></script>
     <script src="assets/js/carousel.js?v=20260806a" defer></script>
     <script src="assets/js/animations.js?v=20260806a" defer></script>
   </body>
