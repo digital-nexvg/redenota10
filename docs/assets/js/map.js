@@ -393,7 +393,7 @@
     });
   };
 
-  fetch(`${pathPrefix}/data/postos.json`)
+  fetch(`${pathPrefix}/data/postos.json`, { cache: 'no-store' })
     .then((response) => response.json())
     .then((units) => {
       unitsCache = units;

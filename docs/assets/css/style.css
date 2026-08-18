@@ -448,14 +448,16 @@ body.inner-page .site-header .menu-toggle span {
   display: block;
   width: 100%;
   max-width: var(--hero-shell-max);
+  aspect-ratio: 1284 / 1105;
   margin: 0 auto;
+  overflow: hidden;
   border-radius: var(--hero-shell-radius);
   box-shadow: 0 20px 60px rgba(7, 16, 36, 0.26);
 }
 
 .hero-slide {
   position: absolute;
-  inset: 0 0 auto;
+  inset: 0;
   opacity: 0;
   transition: opacity 700ms ease;
 }
@@ -464,15 +466,14 @@ body.inner-page .site-header .menu-toggle span {
 .hero-slide img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .hero-slide img {
-  object-fit: initial;
+  object-fit: cover;
 }
 
 .hero-slide.active {
-  position: relative;
   opacity: 1;
 }
 
@@ -531,6 +532,7 @@ body.inner-page .site-header .menu-toggle span {
 
   .hero .hero-fallback {
     width: 100% !important;
+    aspect-ratio: 1284 / 1593;
     border-radius: 0 !important;
     box-shadow: none !important;
   }

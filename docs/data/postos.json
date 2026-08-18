@@ -15,8 +15,8 @@
 			"assets/images/postos/joinha/galeria-2.jpg",
 			"assets/images/postos/joinha/galeria-3.jpg"
 		],
-		"lat": -22.9106942,
-		"lng": -43.3602137,
+		"lat": -22.8888766,
+		"lng": -43.345948,
 		"servicos": ["Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
@@ -35,8 +35,8 @@
 			"assets/images/postos/via-gas/galeria-2.jpg",
 			"assets/images/postos/via-gas/galeria-3.jpg"
 		],
-		"lat": -22.7544541,
-		"lng": -42.8905956,
+		"lat": -22.7553698,
+		"lng": -42.8913989,
 		"servicos": ["Troca de óleo", "Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
@@ -75,8 +75,8 @@
 			"assets/images/postos/mega-engenho-novo/galeria-2.jpg",
 			"assets/images/postos/mega-engenho-novo/galeria-3.jpg"
 		],
-		"lat": -22.9000102,
-		"lng": -43.2645151,
+		"lat": -22.9016083,
+		"lng": -43.2694891,
 		"servicos": ["Troca de óleo", "Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
@@ -95,8 +95,8 @@
 			"assets/images/postos/grajau/galeria-2.jpg",
 			"assets/images/postos/grajau/galeria-3.jpg"
 		],
-		"lat": -22.9195915,
-		"lng": -43.2613571,
+		"lat": -22.9167134,
+		"lng": -43.2624316,
 		"servicos": ["Loja de conveniência", "GNV", "Diesel S10"]
 	},
 	{
@@ -135,8 +135,8 @@
 			"assets/images/postos/cruzada-peninsula/galeria-2.jpg",
 			"assets/images/postos/cruzada-peninsula/galeria-3.jpg"
 		],
-		"lat": -22.996141,
-		"lng": -43.3572454,
+		"lat": -22.9965033,
+		"lng": -43.3559148,
 		"servicos": ["Lavagem", "Troca de óleo", "Loja de conveniência", "Diesel S10"]
 	}
 ]
