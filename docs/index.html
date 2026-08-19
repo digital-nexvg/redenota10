@@ -14,8 +14,8 @@
     <link rel="icon" type="image/webp" href="assets/images/logo/favicon.webp">
     <link rel="shortcut icon" type="image/webp" href="assets/images/logo/favicon.webp">
     <link rel="apple-touch-icon" href="assets/images/logo/favicon.webp">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260814g">
-    <link rel="stylesheet" href="assets/css/responsive.css?v=20260814d">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260819l">
+    <link rel="stylesheet" href="assets/css/responsive.css?v=20260819j">
     <link rel="stylesheet" href="assets/css/animations.css?v=20260808a">
   </head>
   <body>
@@ -43,7 +43,7 @@
             <li><a data-nav-link href="pages/sobre.html">Sobre Nós</a></li>
             <li><a data-nav-link href="pages/avaliacoes.html">Avaliações</a></li>
             <li><a data-nav-link href="pages/trabalhe-conosco.html">Trabalhe Conosco</a></li>
-            <li><a data-nav-link href="pages/unidades.html">Onde Estamos</a></li>
+            <li><a data-nav-link href="pages/contato.html">Contato</a></li>
           </ul>
         </nav>
         <a class="desktop-unit-link" href="pages/unidades.html?localizar=1">Encontrar Posto</a>
@@ -55,10 +55,10 @@
       <section class="hero" aria-label="Destaque principal">
         <div class="hero-fallback" data-hero-carousel aria-label="Imagens em destaque">
           <div class="hero-slide active" data-hero-slide>
-            <picture><source media="(max-width: 768px)" srcset="assets/images/logo/hero-menu.jpg"><img src="assets/images/logo/cremo.jpg" alt="Promoção Rede Nota 10" fetchpriority="high"></picture>
+            <picture><source media="(max-width: 768px)" srcset="assets/images/home-hero/s1m.jpg"><img src="assets/images/home-hero/s1d.jpg" alt="Promoção Rede Nota 10" fetchpriority="high"></picture>
           </div>
           <div class="hero-slide" data-hero-slide>
-            <picture><source media="(max-width: 768px)" srcset="assets/images/home-hero/promo.jpg"><img src="assets/images/home-hero/promodesk.jpg" alt="Promoção Rede Nota 10"></picture>
+            <picture><source media="(max-width: 768px)" srcset="assets/images/home-hero/s2m.jpg"><img src="assets/images/home-hero/s2d.jpg" alt="Promoção Rede Nota 10"></picture>
           </div>
           <div class="hero-slide" data-hero-slide>
             <picture><source media="(max-width: 768px)" srcset="assets/images/postos/via-gas/principal.jpg"><img src="assets/images/postos/via-gas/principal.jpg" alt="Posto Via Gás"></picture>
@@ -75,36 +75,32 @@
         </div>
       </section>
 
-     
-      <section class="section find-unit">
-        <div class="container quick-links">
+      <section class="section fuel-showcase">
+        <div class="container">
           <div class="section-head reveal">
-            <span class="eyebrow">Encontre uma unidade</span>
-            <h2>Encontre sua unidade no Rio de Janeiro</h2>
-            <p>Digite seu bairro e o resultado mostrará o posto mais próximo.</p>
+            <span class="eyebrow">Combustíveis</span>
+            <h2>Alta performance para todos os perfis de veículo</h2>
           </div>
-
-          <div class="search-shell reveal" role="search">
-            <label for="quick-city">Digite seu bairro</label>
-            <input id="quick-city" type="search" placeholder="Ex.: Campo Grande" data-quick-city>
-            <div class="quick-location-actions">
-              <button class="btn btn-primary" type="button" data-confirm-location>Confirmar localização</button>
-              <button class="btn btn-secondary" type="button" data-use-location>Usar minha localização</button>
+          <div class="fuel-carousel" data-fuel-carousel aria-roledescription="carrossel" aria-label="Tipos de combustíveis">
+            <div class="fuel-carousel__viewport">
+              <div class="fuel-carousel__track" data-fuel-track>
+                <article class="fuel-card gasolina" data-fuel-slide role="group" aria-roledescription="slide" aria-label="1 de 5"><h3>Gasolina</h3><p>Formulação com padrão de pureza para melhor desempenho e proteção do motor.</p></article>
+                <article class="fuel-card etanol" data-fuel-slide role="group" aria-roledescription="slide" aria-label="2 de 5"><h3>Etanol</h3><p>Solução eficiente e sustentável, com qualidade monitorada em todas as unidades.</p></article>
+                <article class="fuel-card diesel" data-fuel-slide role="group" aria-roledescription="slide" aria-label="3 de 5"><h3>Diesel</h3><p>Potência, rendimento e regularidade para frotas e veículos de trabalho.</p></article>
+                <article class="fuel-card gnv" data-fuel-slide role="group" aria-roledescription="slide" aria-label="4 de 5"><h3>GNV</h3><p>Abastecimento com segurança e eficiência para quem busca economia no dia a dia.</p></article>
+                <article class="fuel-card eletrica" data-fuel-slide role="group" aria-roledescription="slide" aria-label="5 de 5"><h3>Recarga elétrica</h3><p>Pontos de recarga para veículos elétricos com praticidade e suporte na sua rota.</p></article>
+              </div>
             </div>
-            <ul class="quick-results" data-quick-results></ul>
+            <div class="fuel-carousel__controls">
+              <button class="fuel-carousel__arrow" type="button" data-fuel-prev aria-label="Combustível anterior">&#8592;</button>
+              <div class="fuel-carousel__dots" data-fuel-dots aria-label="Selecionar combustível"></div>
+              <button class="fuel-carousel__arrow" type="button" data-fuel-next aria-label="Próximo combustível">&#8594;</button>
+            </div>
           </div>
-        </div>
-
-        <div class="container featured-units-panel" style="margin-top: 1.5rem;">
-          <div class="section-head reveal">
-            <span class="eyebrow">Postos em destaque</span>
-            <h2>Veja os postos com foto principal e detalhes rápidos</h2>
-          </div>
-          <div class="units-list units-list--home" data-home-units-list></div>
         </div>
       </section>
 
-      <section class="section">
+      <section class="section differentials-section">
         <div class="container">
           <div class="section-head reveal">
             <span class="eyebrow">Diferenciais</span>
@@ -137,38 +133,36 @@
         </div>
       </section>
 
-      <section class="section stats">
-        <div class="container">
+     
+      <section class="section find-unit">
+        <div class="container quick-links">
           <div class="section-head reveal">
-            <span class="eyebrow">Números da Rede</span>
-            <h2>Resultados que reforçam nossa credibilidade</h2>
+            <span class="eyebrow">Encontre uma unidade</span>
+            <h2>Encontre sua unidade no Rio de Janeiro</h2>
+            <p>Digite seu bairro e o resultado mostrará o posto mais próximo.</p>
           </div>
-          <div class="stats-grid">
-            <article class="stat-card reveal"><strong data-counter="6">0</strong><span>Unidades em operação</span></article>
-            <article class="stat-card reveal"><strong data-counter="20">0</strong><span>Anos de atuação</span></article>
-            <article class="stat-card reveal"><strong data-counter="1200000">0</strong><span>Clientes atendidos</span></article>
-            <article class="stat-card reveal"><strong data-counter="98">0</strong><span>Índice de satisfação (%)</span></article>
+
+          <div class="search-shell reveal" role="search">
+            <label for="quick-city">Digite seu bairro</label>
+            <input id="quick-city" type="search" placeholder="Ex.: Campo Grande" data-quick-city>
+            <div class="quick-location-actions">
+              <button class="btn btn-primary" type="button" data-confirm-location>Confirmar localização</button>
+              <button class="btn btn-secondary" type="button" data-use-location>Usar minha localização</button>
+            </div>
+            <ul class="quick-results" data-quick-results></ul>
           </div>
+        </div>
+
+        <div class="container featured-units-panel" style="margin-top: 1.5rem;">
+          <div class="section-head reveal">
+            <span class="eyebrow">POSTOS NOTA 10</span>
+            <h2>Cada unidade uma experiência diferente pra você</h2>
+          </div>
+          <div class="units-list units-list--home" data-home-units-list></div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container">
-          <div class="section-head reveal">
-            <span class="eyebrow">Combustíveis</span>
-            <h2>Alta performance para todos os perfis de veículo</h2>
-          </div>
-          <div class="fuels-grid">
-            <article class="fuel-card gasolina reveal"><h3>Gasolina</h3><p>Formulação com padrão de pureza para melhor desempenho e proteção do motor.</p></article>
-            <article class="fuel-card etanol reveal"><h3>Etanol</h3><p>Solução eficiente e sustentável, com qualidade monitorada em todas as unidades.</p></article>
-            <article class="fuel-card diesel reveal"><h3>Diesel</h3><p>Potência, rendimento e regularidade para frotas e veículos de trabalho.</p></article>
-            <article class="fuel-card gnv reveal"><h3>GNV</h3><p>Abastecimento com segurança e eficiência para quem busca economia no dia a dia.</p></article>
-            <article class="fuel-card eletrica reveal"><h3>Recarga elétrica</h3><p>Pontos de recarga para veículos elétricos com praticidade e suporte na sua rota.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reviews-section">
+      <section class="section reviews-section home-reviews-section">
         <div class="container">
           <div class="section-head reveal">
             <span class="eyebrow">Avaliações</span>
@@ -188,7 +182,22 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section stats home-stats-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Números da Rede</span>
+            <h2>Resultados que reforçam nossa credibilidade</h2>
+          </div>
+          <div class="stats-grid">
+            <article class="stat-card reveal"><strong data-counter="7">0</strong><span>Unidades em operação</span></article>
+            <article class="stat-card reveal"><strong data-counter="20">0</strong><span>Anos de atuação</span></article>
+            <article class="stat-card reveal"><strong data-counter="1200000">0</strong><span>Clientes atendidos</span></article>
+            <article class="stat-card reveal"><strong data-counter="98">0</strong><span>Índice de satisfação (%)</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-section">
         <div class="container">
           <div class="cta-band reveal">
             <div>
@@ -289,6 +298,7 @@
     <script src="assets/js/menu.js?v=20260806a" defer></script>
     <script src="assets/js/main.js?v=20260814d" defer></script>
     <script src="assets/js/carousel.js?v=20260806a" defer></script>
+    <script src="assets/js/fuel-carousel.js?v=20260819a" defer></script>
     <script src="assets/js/animations.js?v=20260806a" defer></script>
   </body>
 </html>

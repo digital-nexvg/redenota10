@@ -267,14 +267,16 @@ ul {
   padding: 0.75rem 0.6rem;
   border-radius: 10px;
   font-weight: 600;
+  transition: background-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 
 .main-nav a:hover,
 .main-nav a:focus-visible,
 .main-nav a.active {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  background: rgba(90, 45, 189, 0.12);
+  color: var(--color-primary) !important;
+  box-shadow: inset 0 0 0 1px rgba(90, 45, 189, 0.24);
+  transform: translateY(-1px);
 }
 
 .site-header.scrolled .main-nav a.active,
@@ -337,7 +339,7 @@ body.inner-page .site-header .menu-toggle span {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   margin-top: 0;
-  padding: 104px 1rem 3rem;
+  padding: 104px 0 0;
   background: transparent;
 }
 
@@ -447,12 +449,13 @@ body.inner-page .site-header .menu-toggle span {
 .hero .hero-fallback {
   display: block;
   width: 100%;
-  max-width: var(--hero-shell-max);
-  aspect-ratio: 1284 / 1105;
+  max-width: none;
+  aspect-ratio: 944 / 1280;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: var(--hero-shell-radius);
-  box-shadow: 0 20px 60px rgba(7, 16, 36, 0.26);
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--color-bg-soft);
 }
 
 .hero-slide {
@@ -470,7 +473,7 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .hero-slide img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hero-slide.active {
@@ -481,7 +484,7 @@ body.inner-page .site-header .menu-toggle span {
   position: absolute;
   z-index: 3;
   left: 50%;
-  bottom: 2rem;
+  bottom: 0.35rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -503,15 +506,15 @@ body.inner-page .site-header .menu-toggle span {
   width: 100%;
   height: 4px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.58);
-  box-shadow: 0 2px 8px rgba(5, 12, 24, 0.28);
+  background: rgba(255, 255, 255, 0.32);
+  box-shadow: none;
   transition: width 240ms ease, background-color 240ms ease;
 }
 
 .hero-carousel-dot.active span,
 .hero-carousel-dot:hover span,
 .hero-carousel-dot:focus-visible span {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.58);
 }
 
 .hero-carousel-dot.active span {
@@ -532,13 +535,13 @@ body.inner-page .site-header .menu-toggle span {
 
   .hero .hero-fallback {
     width: 100% !important;
-    aspect-ratio: 1284 / 1593;
+    aspect-ratio: 944 / 1280;
     border-radius: 0 !important;
     box-shadow: none !important;
   }
 
   .hero-carousel-dots {
-    bottom: 1.25rem;
+    bottom: 0.35rem;
   }
 }
 
@@ -547,11 +550,7 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(2, 10, 25, 0.72) 0%, rgba(2, 10, 25, 0.42) 42%, rgba(2, 10, 25, 0.16) 100%);
-  z-index: 1;
+  display: none;
 }
 
 .hero .hero-content {
@@ -1090,29 +1089,242 @@ body.inner-page .site-header .menu-toggle span {
 }
 
 .fuel-card {
+  flex: 0 0 100%;
+  min-height: clamp(220px, 28vw, 330px);
+  position: relative;
+  overflow: hidden;
   color: #fff;
-  border-radius: var(--radius-md);
-  padding: 1.2rem;
+  border-radius: 24px;
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(4.25rem, 10vw, 7rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  isolation: isolate;
+}
+
+.fuel-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.fuel-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    linear-gradient(125deg, transparent 0 52%, rgba(255, 255, 255, 0.16) 52.2%, transparent 52.6%),
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: auto, 34px 34px, 34px 34px;
+  mask-image: linear-gradient(135deg, rgba(0, 0, 0, 0.9), transparent 78%);
+}
+
+.fuel-showcase {
+  position: relative;
+  overflow: hidden;
+  background: #080d1c;
+  color: #f5f7ff;
+}
+
+.fuel-showcase::before,
+.fuel-showcase::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(117, 164, 255, 0.16);
+  border-radius: 50%;
+}
+
+.fuel-showcase::before {
+  width: 38rem;
+  height: 38rem;
+  top: -22rem;
+  right: -10rem;
+}
+
+.fuel-showcase::after {
+  width: 24rem;
+  height: 24rem;
+  bottom: -17rem;
+  left: -8rem;
+}
+
+.fuel-showcase .container {
+  position: relative;
+  z-index: 1;
+}
+
+.fuel-showcase .section-head h2 {
+  color: #f5f7ff;
+  font-family: 'Sora', sans-serif;
+}
+
+.fuel-showcase .section-head .eyebrow {
+  color: #75a4ff;
+}
+
+.fuel-carousel {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.fuel-carousel__viewport {
+  overflow: hidden;
+  border: 1px solid rgba(117, 164, 255, 0.24);
+  border-radius: 24px;
+  background: rgba(7, 12, 28, 0.72);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32), inset 0 0 45px rgba(117, 164, 255, 0.08);
+}
+
+.fuel-carousel__track {
+  display: flex;
+  transition: transform 550ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.fuel-carousel__track .fuel-card {
+  border-radius: 0;
+  background: transparent;
+}
+
+.fuel-card::before {
+  content: '';
+  position: absolute;
+  inset: 1rem;
+  z-index: -1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  clip-path: polygon(0 0, 42% 0, 42% 1px, 100% 1px, 100% 100%, 58% 100%, 58% calc(100% - 1px), 0 calc(100% - 1px));
+}
+
+.fuel-card h3 {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 3.4rem);
+  letter-spacing: 0;
+}
+
+.fuel-card p {
+  max-width: 52ch;
+  margin: 0.6rem 0 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.fuel-card__index {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: 'Sora', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.fuel-carousel__controls {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.fuel-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(117, 164, 255, 0.48);
+  border-radius: 50%;
+  background: rgba(117, 164, 255, 0.08);
+  color: #f5f7ff;
+  font-size: 1.35rem;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.fuel-carousel__arrow:first-child {
+  left: 1rem;
+}
+
+.fuel-carousel__arrow:last-child {
+  right: 1rem;
+}
+
+.fuel-carousel__arrow:hover,
+.fuel-carousel__arrow:focus-visible {
+  background: #75a4ff;
+  border-color: #75a4ff;
+  color: #080d1c;
+  transform: translateY(-50%) scale(1.06);
+}
+
+.fuel-carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.fuel-carousel__dot {
+  width: 30px;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background-color var(--transition), width 550ms ease, box-shadow 550ms ease;
+}
+
+.fuel-carousel__dot.active {
+  width: 62px;
+  background: #75a4ff;
+  box-shadow: 0 0 12px rgba(117, 164, 255, 0.8);
+}
+
+@media (max-width: 600px) {
+  .fuel-carousel__arrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .fuel-carousel__arrow:first-child {
+    left: 0.65rem;
+  }
+
+  .fuel-carousel__arrow:last-child {
+    right: 0.65rem;
+  }
 }
 
 .fuel-card.gasolina {
-  background: linear-gradient(130deg, #5a2dbd, #7d5fd8);
+  background: radial-gradient(circle at 84% 18%, rgba(197, 184, 255, 0.45), transparent 30%), linear-gradient(130deg, #332076, #6c4dc6);
 }
 
 .fuel-card.etanol {
-  background: linear-gradient(130deg, #1ea55b, #46c474);
+  background: radial-gradient(circle at 84% 18%, rgba(187, 255, 215, 0.42), transparent 30%), linear-gradient(130deg, #0e7040, #35b86c);
 }
 
 .fuel-card.diesel {
-  background: linear-gradient(130deg, #ff7a1a, #ff9b4f);
+  background: radial-gradient(circle at 84% 18%, rgba(255, 224, 178, 0.42), transparent 30%), linear-gradient(130deg, #b84c0b, #ed873c);
 }
 
 .fuel-card.gnv {
-  background: linear-gradient(130deg, #2c6fdb, #5a8ef1);
+  background: radial-gradient(circle at 84% 18%, rgba(199, 224, 255, 0.46), transparent 30%), linear-gradient(130deg, #2053a9, #467ee4);
 }
 
 .fuel-card.eletrica {
-  background: linear-gradient(130deg, #0f8a8a, #1fb6b6);
+  background: radial-gradient(circle at 84% 18%, rgba(183, 255, 250, 0.42), transparent 30%), linear-gradient(130deg, #086b70, #18a4a5);
 }
 
 .promo-wrap {

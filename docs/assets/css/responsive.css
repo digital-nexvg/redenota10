@@ -19,6 +19,33 @@
 }
 
 @media (min-width: 960px) {
+  .home-reviews-section,
+  .home-stats-section {
+    padding-block: 1.5rem;
+  }
+
+  .cta-section {
+    padding-block: 1.5rem;
+  }
+
+  .differentials-section {
+    padding-block: 1.5rem;
+  }
+
+  .fuel-showcase {
+    padding-block: 1.5rem;
+  }
+
+  .fuel-showcase .fuel-card {
+    min-height: 0;
+    height: 165px;
+    padding-block: 1.25rem;
+  }
+
+  .fuel-showcase .fuel-carousel__viewport {
+    height: 165px;
+  }
+
   .units-finder {
     display: flex;
     flex-direction: column;
@@ -53,6 +80,8 @@
   .hero {
     margin-top: 0;
     padding-top: 94px;
+    padding-inline: 0;
+    padding-bottom: 0;
   }
 
   .hero .hero-content {
@@ -77,6 +106,13 @@
 
   .hero .hero-fallback {
     display: block;
+  }
+
+  .hero .hero-fallback {
+    aspect-ratio: 2560 / 563;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .main-nav {
@@ -124,8 +160,8 @@
     border-radius: 999px;
     background: linear-gradient(130deg, var(--color-secondary), #ff9e58);
     color: #fff;
-    font-size: 0.76rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
     line-height: 1.1;
     white-space: nowrap;
     box-shadow: 0 8px 18px rgba(255, 122, 26, 0.24);
@@ -177,9 +213,37 @@
   .section {
     padding: 5.5rem 0;
   }
+
+  .fuel-showcase {
+    padding-block: 1.5rem;
+  }
+
+  .differentials-section {
+    padding-block: 1.5rem;
+  }
+
+  .cta-section {
+    padding-block: 1.5rem;
+  }
+
+  .home-reviews-section,
+  .home-stats-section {
+    padding-block: 1.5rem;
+  }
 }
 
 @media (max-width: 959px) {
+  .hero {
+    padding-inline: 0;
+    padding-bottom: 0;
+  }
+
+  .hero .hero-fallback {
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   .site-header .header-wrap {
     gap: 0.55rem;
   }
@@ -194,8 +258,8 @@
     border-radius: 999px;
     background: linear-gradient(130deg, var(--color-secondary), #ff9e58);
     color: #fff;
-    font-size: 0.76rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
     line-height: 1.1;
     white-space: nowrap;
     box-shadow: 0 8px 18px rgba(255, 122, 26, 0.24);
@@ -215,6 +279,37 @@
 }
 
 @media (min-width: 761px) and (max-width: 959px) {
+  .fuel-showcase {
+    padding-block: 1.25rem;
+  }
+
+  .differentials-section {
+    padding-block: 1.25rem;
+  }
+
+  .cta-section {
+    padding-block: 1.25rem;
+  }
+
+  .home-reviews-section,
+  .home-stats-section {
+    padding-block: 1.25rem;
+  }
+
+  .fuel-showcase .fuel-card {
+    min-height: 0;
+    height: 140px;
+    padding-block: 1rem;
+  }
+
+  .fuel-showcase .fuel-carousel__viewport {
+    height: 140px;
+  }
+
+  .hero .hero-fallback {
+    aspect-ratio: 2560 / 563;
+  }
+
   .hero .hero-content {
     max-width: min(68%, var(--container));
   }
