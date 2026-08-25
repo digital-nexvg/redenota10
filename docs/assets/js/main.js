@@ -148,6 +148,31 @@
     }, 5000);
   }
 
+  const setupKmvDownloadLink = () => {
+    const kmvLinks = document.querySelectorAll('[data-kmv-download]');
+    if (!kmvLinks.length) return;
+
+    const userAgent = navigator.userAgent || '';
+    const isAndroid = /Android/i.test(userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(userAgent) || (/Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 1);
+
+    kmvLinks.forEach((link) => {
+      const iosLink = String(link.getAttribute('data-kmv-ios') || '').trim();
+      const androidLink = String(link.getAttribute('data-kmv-android') || '').trim();
+
+      if (isIOS && iosLink) {
+        link.setAttribute('href', iosLink);
+        return;
+      }
+
+      if (isAndroid && androidLink) {
+        link.setAttribute('href', androidLink);
+      }
+    });
+  };
+
+  setupKmvDownloadLink();
+
   if (heroSlides.length > 1) {
     let activeHeroSlide = 0;
     let heroTimer;
@@ -355,6 +380,23 @@
     unitModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
     unitModal.querySelector('.unit-modal__close')?.focus();
+  };
+
+  window.rn10OpenUnitModal = (unitId) => {
+    const id = Number(unitId);
+    if (!id || !Array.isArray(unitsCache) || !unitsCache.length) return false;
+
+    const unit = unitsCache.find((item) => Number(item.id) === id);
+    if (!unit) return false;
+
+    openUnitModal(unit);
+    return true;
+  };
+
+  window.rn10OpenUnitModalData = (unitData) => {
+    if (!unitData || typeof unitData !== 'object') return false;
+    openUnitModal(unitData);
+    return true;
   };
 
   const renderHomeUnits = (units, nearestUnitId = null) => {

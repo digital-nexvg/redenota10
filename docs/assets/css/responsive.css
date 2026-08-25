@@ -46,6 +46,15 @@
     height: 165px;
   }
 
+  .fuel-showcase .fuel-card h3 {
+    font-size: clamp(1.15rem, 1.9vw, 1.65rem);
+  }
+
+  .fuel-showcase .fuel-card__title {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
   .units-finder {
     display: flex;
     flex-direction: column;
@@ -132,6 +141,10 @@
     padding: 0;
   }
 
+  .main-nav .nav-mobile-fleet {
+    display: none;
+  }
+
   .main-nav a {
     padding: 0.65rem 0.85rem;
     color: #0f172a;
@@ -151,7 +164,8 @@
     padding-inline: 1rem;
   }
 
-  .desktop-unit-link {
+  .desktop-unit-link,
+  .desktop-fleet-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -165,6 +179,11 @@
     line-height: 1.1;
     white-space: nowrap;
     box-shadow: 0 8px 18px rgba(255, 122, 26, 0.24);
+  }
+
+  .desktop-fleet-link {
+    background: linear-gradient(130deg, #1f65d6, #3d8bff);
+    box-shadow: 0 8px 18px rgba(31, 101, 214, 0.24);
   }
 
   .hero .hero-content {

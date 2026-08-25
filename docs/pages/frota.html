@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Frota | Rede Nota 10</title>
+    <meta name="description" content="Cadastre sua frota na Rede Nota 10 e receba atendimento comercial especializado.">
+    <link rel="icon" type="image/webp" href="../assets/images/logo/favicon.webp">
+    <link rel="shortcut icon" type="image/webp" href="../assets/images/logo/favicon.webp">
+    <link rel="apple-touch-icon" href="../assets/images/logo/favicon.webp">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20260819l">
+    <link rel="stylesheet" href="../assets/css/responsive.css?v=20260819j">
+    <link rel="stylesheet" href="../assets/css/animations.css?v=20260808a">
+  </head>
+  <body class="inner-page">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <div class="preloader" data-preloader aria-hidden="true"><div class="ring"></div></div>
+
+    <header class="site-header" data-header>
+      <div class="container header-wrap">
+        <a class="logo-link" href="../index.html" aria-label="Página inicial da Rede Nota 10">
+          <img src="../assets/images/logo/logo1.jpg" alt="Logo Rede Nota 10">
+        </a>
+
+        <a class="mobile-unit-link" href="unidades.html?localizar=1">Encontrar posto</a>
+
+        <button class="menu-toggle" data-menu-toggle aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="main-nav">
+          <span></span>
+        </button>
+
+        <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+          <ul>
+            <li><a data-nav-link href="../index.html">Home</a></li>
+            <li><a data-nav-link href="sobre.html">Sobre Nós</a></li>
+            <li><a data-nav-link href="avaliacoes.html">Avaliações</a></li>
+            <li><a data-nav-link href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+            <li><a data-nav-link href="contato.html">Contato</a></li>
+            <li class="nav-mobile-fleet"><a class="active" data-nav-link href="frota.html">Cadastre sua Frota</a></li>
+          </ul>
+        </nav>
+        <a class="desktop-fleet-link" href="frota.html">Cadastre sua Frota</a>
+        <a class="desktop-unit-link" href="unidades.html?localizar=1">Encontrar Posto</a>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="inner-hero">
+        <div class="container reveal">
+          <h1>Cadastre sua Frota</h1>
+          <p>Preencha os dados abaixo para iniciarmos o atendimento comercial da sua empresa.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Formulário inicial</span>
+            <h2>Dados básicos da frota</h2>
+            <p>Este é um formulário base para início. Podemos evoluir com campos adicionais conforme sua operação.</p>
+          </div>
+
+          <form class="search-shell reveal" action="#" method="post">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="empresa">Nome da empresa</label>
+                <input id="empresa" name="empresa" type="text" required>
+              </div>
+              <div class="form-field">
+                <label for="responsavel">Responsável</label>
+                <input id="responsavel" name="responsavel" type="text" required>
+              </div>
+              <div class="form-field">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" required>
+              </div>
+              <div class="form-field">
+                <label for="telefone">Telefone</label>
+                <input id="telefone" name="telefone" type="tel" required>
+              </div>
+              <div class="form-field">
+                <label for="qtd-veiculos">Quantidade de veículos</label>
+                <input id="qtd-veiculos" name="qtd-veiculos" type="number" min="1" placeholder="Ex.: 25" required>
+              </div>
+              <div class="form-field full">
+                <label for="observacoes">Observações</label>
+                <textarea id="observacoes" name="observacoes" rows="4" placeholder="Descreva necessidades da sua frota"></textarea>
+              </div>
+            </div>
+            <div class="hero-actions" style="margin-top: 1rem;">
+              <button class="btn btn-primary" type="submit">Enviar cadastro</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <img class="footer-logo" src="../assets/images/logo/logo1.jpg" alt="Rede Nota 10">
+          <p>Rede de postos moderna, confiável e orientada por excelência em atendimento, qualidade e inovação.</p>
+        </div>
+
+        <div>
+          <h3>Links rápidos</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="unidades.html">Onde Estamos</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Redes sociais</h3>
+          <ul class="footer-links">
+            <li><a href="#" aria-label="Instagram da Rede Nota 10">Instagram</a></li>
+            <li><a href="mailto:contato@redenota10.com.br">contato@redenota10.com.br</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <span>© <span data-current-year></span> Rede Nota 10. Todos os direitos reservados.</span>
+        <span>Desenvolvido por NEXVG | Soluções Digitais</span>
+      </div>
+    </footer>
+
+    <button class="whatsapp-float" aria-label="Abrir WhatsApp">W</button>
+    <button class="back-to-top" data-back-to-top aria-label="Voltar ao topo">↑</button>
+
+    <script src="../assets/js/menu.js?v=20260806a" defer></script>
+    <script src="../assets/js/main.js?v=20260825a" defer></script>
+    <script src="../assets/js/animations.js?v=20260806a" defer></script>
+  </body>
+</html>
