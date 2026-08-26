@@ -103,6 +103,7 @@
 
   .site-header .header-wrap {
     min-height: 94px;
+    gap: 0.45rem;
   }
 
   .site-header .logo-link img {
@@ -137,11 +138,15 @@
   .main-nav ul {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.05rem;
     padding: 0;
   }
 
   .main-nav .nav-mobile-fleet {
+    display: none;
+  }
+
+  .main-nav .nav-mobile-instagram {
     display: none;
   }
 
@@ -179,6 +184,22 @@
     line-height: 1.1;
     white-space: nowrap;
     box-shadow: 0 8px 18px rgba(255, 122, 26, 0.24);
+  }
+
+  .desktop-instagram-link {
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    margin-inline: 0.1rem;
+  }
+
+  .desktop-instagram-link img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
   }
 
   .desktop-fleet-link {

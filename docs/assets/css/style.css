@@ -220,9 +220,26 @@ ul {
   display: none;
 }
 
+.desktop-instagram-link {
+  display: none;
+}
+
 .nav-mobile-fleet a {
   color: #1f65d6;
   font-weight: 700;
+}
+
+.main-nav .nav-mobile-instagram a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.nav-mobile-instagram img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .site-header .menu-toggle span {
