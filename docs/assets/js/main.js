@@ -145,7 +145,7 @@
       promoSlides[active].classList.remove('active');
       active = (active + 1) % promoSlides.length;
       promoSlides[active].classList.add('active');
-    }, 5000);
+    }, 4000);
   }
 
   const setupKmvDownloadLink = () => {

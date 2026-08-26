@@ -44,7 +44,7 @@
 
   const restartTimer = () => {
     window.clearInterval(timer);
-    timer = window.setInterval(() => goTo(current + 1), 2000);
+    timer = window.setInterval(() => goTo(current + 1), 6000);
   };
 
   nextButton?.addEventListener('click', () => {
