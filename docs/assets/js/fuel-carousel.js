@@ -57,6 +57,28 @@
     restartTimer();
   });
 
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  carousel.addEventListener('touchstart', (event) => {
+    if (window.innerWidth > 959) return;
+    const touch = event.changedTouches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }, { passive: true });
+
+  carousel.addEventListener('touchend', (event) => {
+    if (window.innerWidth > 959) return;
+    const touch = event.changedTouches[0];
+    const horizontalDistance = touchStartX - touch.clientX;
+    const verticalDistance = touchStartY - touch.clientY;
+
+    if (Math.abs(horizontalDistance) < 48 || Math.abs(horizontalDistance) <= Math.abs(verticalDistance)) return;
+
+    goTo(current + (horizontalDistance > 0 ? 1 : -1));
+    restartTimer();
+  }, { passive: true });
+
   carousel.addEventListener('mouseenter', () => window.clearInterval(timer));
   carousel.addEventListener('mouseleave', restartTimer);
   carousel.addEventListener('focusin', () => window.clearInterval(timer));
