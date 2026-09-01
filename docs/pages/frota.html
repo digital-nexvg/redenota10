@@ -8,7 +8,7 @@
     <link rel="icon" type="image/webp" href="../assets/images/logo/favicon.webp">
     <link rel="shortcut icon" type="image/webp" href="../assets/images/logo/favicon.webp">
     <link rel="apple-touch-icon" href="../assets/images/logo/favicon.webp">
-    <link rel="stylesheet" href="../assets/css/style.css?v=20260826a">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20260901a">
     <link rel="stylesheet" href="../assets/css/responsive.css?v=20260826a">
     <link rel="stylesheet" href="../assets/css/animations.css?v=20260808a">
   </head>
@@ -64,8 +64,20 @@
             <p>Este é um formulário base para início. Podemos evoluir com campos adicionais conforme sua operação.</p>
           </div>
 
-          <form class="search-shell reveal" action="#" method="post">
+          <form class="search-shell reveal" action="#" method="post" data-fleet-form>
             <div class="form-grid">
+              <div class="form-field full">
+                <label for="assunto">Assunto</label>
+                <select id="assunto" name="assunto" data-fleet-subject required>
+                  <option value="" disabled selected>Selecione o assunto</option>
+                  <option value="novos-negocios">Novos negócios</option>
+                  <option value="comercial">Comercial</option>
+                  <option value="sugestoes">Sugestões</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid" data-fleet-group="frota">
               <div class="form-field">
                 <label for="empresa">Nome da empresa</label>
                 <input id="empresa" name="empresa" type="text" required>
@@ -91,6 +103,22 @@
                 <textarea id="observacoes" name="observacoes" rows="4" placeholder="Descreva necessidades da sua frota"></textarea>
               </div>
             </div>
+
+            <div class="form-grid" data-fleet-group="sugestao" hidden>
+              <div class="form-field">
+                <label for="sugestao-nome">Nome</label>
+                <input id="sugestao-nome" name="sugestao-nome" type="text" required>
+              </div>
+              <div class="form-field">
+                <label for="sugestao-contato">Contato</label>
+                <input id="sugestao-contato" name="sugestao-contato" type="text" placeholder="E-mail ou telefone" required>
+              </div>
+              <div class="form-field full">
+                <label for="sugestao-mensagem">Envie sua sugestão</label>
+                <textarea id="sugestao-mensagem" name="sugestao-mensagem" rows="4" placeholder="Conte sua sugestão" required></textarea>
+              </div>
+            </div>
+
             <div class="hero-actions" style="margin-top: 1rem;">
               <button class="btn btn-primary" type="submit">Enviar cadastro</button>
             </div>
@@ -137,5 +165,6 @@
     <script src="../assets/js/menu.js?v=20260806a" defer></script>
     <script src="../assets/js/main.js?v=20260825a" defer></script>
     <script src="../assets/js/animations.js?v=20260806a" defer></script>
+    <script src="../assets/js/fleet-form.js?v=20260901a" defer></script>
   </body>
 </html>

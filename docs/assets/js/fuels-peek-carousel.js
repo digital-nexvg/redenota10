@@ -57,6 +57,10 @@
     });
   };
 
+  // Fallback duration must cover the CSS transition (550ms) plus a safety margin,
+  // so a missed/cancelled transitionend (e.g. triggered by unrelated layout changes) never leaves isAnimating stuck.
+  const ANIMATION_FALLBACK_MS = 700;
+
   const rotateNext = () => {
     if (isAnimating) return Promise.resolve();
     isAnimating = true;
@@ -68,7 +72,12 @@
 
     return new Promise((resolve) => {
       const baseShift = getBaseShift();
-      const onEnd = () => {
+      let settled = false;
+
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(fallbackTimer);
         track.removeEventListener('transitionend', onEnd);
         track.append(track.firstElementChild);
         track.style.transition = 'none';
@@ -80,6 +89,9 @@
         isAnimating = false;
         resolve();
       };
+
+      const onEnd = () => finish();
+      const fallbackTimer = window.setTimeout(finish, ANIMATION_FALLBACK_MS);
 
       track.addEventListener('transitionend', onEnd, { once: true });
       track.style.transform = `translateX(-${step + baseShift}px)`;
@@ -103,7 +115,12 @@
       track.getBoundingClientRect();
       track.style.transition = '';
 
-      const onEnd = () => {
+      let settled = false;
+
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(fallbackTimer);
         track.removeEventListener('transitionend', onEnd);
         track.style.transition = 'none';
         track.style.transform = `translateX(-${baseShift}px)`;
@@ -114,6 +131,9 @@
         isAnimating = false;
         resolve();
       };
+
+      const onEnd = () => finish();
+      const fallbackTimer = window.setTimeout(finish, ANIMATION_FALLBACK_MS);
 
       track.addEventListener('transitionend', onEnd, { once: true });
       track.style.transform = `translateX(-${baseShift}px)`;
@@ -192,6 +212,9 @@
   });
 
   window.addEventListener('resize', () => {
+    // Skip while a slide transition is in flight: forcing the transform here would
+    // cancel it without a transitionend, leaving the carousel stuck.
+    if (isAnimating) return;
     track.style.transition = 'none';
     track.style.transform = `translateX(-${getBaseShift()}px)`;
     track.getBoundingClientRect();

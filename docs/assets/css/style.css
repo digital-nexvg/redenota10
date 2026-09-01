@@ -2080,6 +2080,10 @@ body.inner-page .site-header .menu-toggle span {
   gap: 0.9rem;
 }
 
+.form-grid[hidden] {
+  display: none;
+}
+
 .form-field textarea {
   min-height: 120px;
   resize: vertical;
