@@ -56,7 +56,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" data-careers-form-section>
         <div class="container">
           <div class="section-head reveal">
             <span class="eyebrow">Banco de talentos</span>
@@ -64,8 +64,7 @@
             <p>Cadastre seus dados para participar do banco de talentos da Rede Nota 10.</p>
           </div>
 
-          <form id="careers-form" class="search-shell reveal" action="https://formspree.io/f/xbdnwjor" method="post">
-            <input id="form-next-url" type="hidden" name="_next" value="https://www.redenota10.com.br/pages/curriculo-enviado.html">
+          <form id="careers-form" class="search-shell reveal" action="https://formspree.io/f/xrpglodb" method="post">
             <div class="form-grid">
               <div class="form-field">
                 <label for="nome">Nome</label>
@@ -108,7 +107,22 @@
                 <button class="btn btn-primary" type="submit">Enviar currículo</button>
               </div>
             </div>
+            <p class="form-status" data-careers-status role="status" aria-live="polite" hidden></p>
           </form>
+        </div>
+      </section>
+
+      <section class="section" data-careers-success hidden>
+        <div class="container">
+          <div class="cards-grid" style="grid-template-columns: 1fr; max-width: 760px; margin: 0 auto;">
+            <article class="card reveal" style="text-align: center;">
+              <h2>Recebemos seus dados</h2>
+              <p>Obrigado por se candidatar! Nosso time de recrutamento vai analisar seu perfil e entrar em contato caso haja uma oportunidade compatível.</p>
+              <div class="hero-actions" style="justify-content: center; margin-top: 1.5rem;">
+                <a class="btn btn-primary" href="../index.html">Voltar para a Home</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </main>
@@ -157,13 +171,20 @@
     <script src="../assets/js/chatbot/chatbot.js?v=20260901c" defer></script>
     <script>
       (function () {
-        var nextInput = document.getElementById("form-next-url");
         var careersForm = document.getElementById("careers-form");
+        var statusEl = document.querySelector("[data-careers-status]");
+        var formSection = document.querySelector("[data-careers-form-section]");
+        var successSection = document.querySelector("[data-careers-success]");
 
-        if (!nextInput || !careersForm) return;
+        if (!careersForm) return;
 
-        var redirectUrl = new URL("curriculo-enviado.html", window.location.href).href;
-        nextInput.value = redirectUrl;
+        var showStatus = function (message, isError) {
+          if (!statusEl) return;
+          statusEl.textContent = message;
+          statusEl.hidden = false;
+          statusEl.classList.toggle("form-status--error", Boolean(isError));
+          statusEl.classList.toggle("form-status--success", !isError);
+        };
 
         careersForm.addEventListener("submit", function (event) {
           event.preventDefault();
@@ -173,6 +194,7 @@
             submitButton.disabled = true;
             submitButton.textContent = "Enviando...";
           }
+          if (statusEl) statusEl.hidden = true;
 
           fetch(careersForm.action, {
             method: "POST",
@@ -185,14 +207,23 @@
               if (!response.ok) {
                 throw new Error("Falha no envio do formulário.");
               }
-              window.location.href = redirectUrl;
+              careersForm.reset();
+              if (formSection && successSection) {
+                formSection.hidden = true;
+                successSection.hidden = false;
+                successSection.scrollIntoView({ behavior: "smooth", block: "start" });
+              } else {
+                showStatus("Currículo enviado com sucesso! Em breve entraremos em contato.", false);
+              }
             })
             .catch(function () {
+              showStatus("Não foi possível enviar agora. Tente novamente em alguns instantes.", true);
+            })
+            .finally(function () {
               if (submitButton) {
                 submitButton.disabled = false;
                 submitButton.textContent = "Enviar currículo";
               }
-              alert("Não foi possível enviar agora. Tente novamente em alguns instantes.");
             });
         });
       })();
