@@ -8,7 +8,7 @@
     <link rel="icon" type="image/webp" href="../assets/images/logo/favicon.webp">
     <link rel="shortcut icon" type="image/webp" href="../assets/images/logo/favicon.webp">
     <link rel="apple-touch-icon" href="../assets/images/logo/favicon.webp">
-    <link rel="stylesheet" href="../assets/css/style.css?v=20260901a">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20260904a">
     <link rel="stylesheet" href="../assets/css/responsive.css?v=20260826a">
     <link rel="stylesheet" href="../assets/css/animations.css?v=20260808a">
     <link rel="stylesheet" href="../assets/css/chatbot.css?v=20260901f">
@@ -57,7 +57,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" data-fleet-form-section>
         <div class="container">
           <div class="section-head reveal">
             <span class="eyebrow">Formulário inicial</span>
@@ -65,7 +65,8 @@
             <p>Este é um formulário base para início. Podemos evoluir com campos adicionais conforme sua operação.</p>
           </div>
 
-          <form class="search-shell reveal" action="#" method="post" data-fleet-form>
+          <form class="search-shell reveal" action="https://formspree.io/f/xljelona" method="post" data-fleet-form>
+            <input type="hidden" name="_subject" data-fleet-subject-input value="Cadastre sua Frota - Rede Nota 10">
             <div class="form-grid">
               <div class="form-field full">
                 <label for="assunto">Assunto</label>
@@ -120,10 +121,26 @@
               </div>
             </div>
 
+            <p class="form-status" data-fleet-status role="status" aria-live="polite" hidden></p>
+
             <div class="hero-actions" style="margin-top: 1rem;">
               <button class="btn btn-primary" type="submit">Enviar cadastro</button>
             </div>
           </form>
+        </div>
+      </section>
+
+      <section class="section" data-fleet-success hidden>
+        <div class="container">
+          <div class="cards-grid" style="grid-template-columns: 1fr; max-width: 760px; margin: 0 auto;">
+            <article class="card reveal" style="text-align: center;">
+              <h2>Recebemos seus dados</h2>
+              <p>Obrigado pelo contato! Nosso time comercial vai analisar as informações e entrar em contato em breve.</p>
+              <div class="hero-actions" style="justify-content: center; margin-top: 1.5rem;">
+                <a class="btn btn-primary" href="../index.html">Voltar para a Home</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </main>
@@ -166,7 +183,7 @@
     <script src="../assets/js/menu.js?v=20260806a" defer></script>
     <script src="../assets/js/main.js?v=20260825a" defer></script>
     <script src="../assets/js/animations.js?v=20260806a" defer></script>
-    <script src="../assets/js/fleet-form.js?v=20260901a" defer></script>
+    <script src="../assets/js/fleet-form.js?v=20260904b" defer></script>
     <script src="../assets/js/chatbot/chatbot-config.js?v=20260901a" defer></script>
     <script src="../assets/js/chatbot/chatbot-data.js?v=20260901a" defer></script>
     <script src="../assets/js/chatbot/chatbot-nlu.js?v=20260901b" defer></script>
