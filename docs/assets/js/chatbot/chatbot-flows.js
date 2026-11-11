@@ -334,8 +334,15 @@ window.RN10_CHATBOT_FLOWS = (() => {
       return;
     }
 
-    const email = area === 'loja' ? unit.lojaEmail : unit.pistaEmail;
+    const email = CONFIG.unidadesEmail[unit.slug];
     const areaLabel = area === 'loja' ? 'Loja' : 'Pista';
+    if (!email) {
+      console.error(`E-mail de atendimento não configurado para a unidade "${unit.slug}".`);
+      UI.addBotMessage('Não foi possível preparar o e-mail para esta unidade. Tente novamente mais tarde.');
+      showHomeBar();
+      return;
+    }
+
     UI.addBotMessage(
       `Vamos abrir seu e-mail para falar com a equipe de <strong>${areaLabel}</strong> da unidade <strong>${unit.nome}</strong>. Preencha nome, mensagem e envie.`
     );

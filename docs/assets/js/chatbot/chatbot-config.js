@@ -7,6 +7,17 @@ window.RN10_CHATBOT_CONFIG = (() => {
     email: 'rh.tag@redenota10.com.br',
   };
 
+  // Loja e pista compartilham o e-mail de atendimento de cada unidade.
+  const unidadesEmail = {
+    joinha: 'posto.joinha@redenota10.com.br',
+    'via-gas': 'posto.viagas@redenota10.com.br',
+    cremoneze: 'posto.cremoneze@redenota10.com.br',
+    'mega-engenho-novo': 'posto.mega@redenota10.com.br',
+    grajau: 'posto.grajau@redenota10.com.br',
+    senna: 'posto.senna@redenota10.com.br',
+    'cruzada-peninsula': 'posto.peninsula@redenota10.com.br',
+  };
+
   // Números de gerentes ainda não foram fornecidos: mantidos como placeholder interno,
   // nunca exibidos na interface (usados só por openManagerWhatsapp).
   const gerentes = {
@@ -41,5 +52,5 @@ window.RN10_CHATBOT_CONFIG = (() => {
     linkedin: PENDING,
   };
 
-  return { PENDING, rh, gerentes, links };
+  return { PENDING, rh, unidadesEmail, gerentes, links };
 })();
