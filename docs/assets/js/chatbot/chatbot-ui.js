@@ -2,6 +2,8 @@
 // Não contém lógica de negócio/fluxo — isso fica em chatbot-flows.js.
 window.RN10_CHATBOT_UI = (() => {
   let elements = null;
+  let typingIndicator = null;
+  let responseTimer = null;
 
   const build = () => {
     if (elements) return elements;
@@ -94,7 +96,12 @@ window.RN10_CHATBOT_UI = (() => {
       button.textContent = label;
       button.addEventListener('click', () => {
         clearOptions();
-        onSelect(value, label);
+        setTyping(true);
+        responseTimer = window.setTimeout(() => {
+          responseTimer = null;
+          setTyping(false);
+          onSelect(value, label);
+        }, 500);
       });
       wrap.append(button);
     });
@@ -105,9 +112,26 @@ window.RN10_CHATBOT_UI = (() => {
 
   const setTyping = (isTyping) => {
     elements.root.classList.toggle('is-typing', isTyping);
+    if (isTyping && !typingIndicator) {
+      typingIndicator = document.createElement('div');
+      typingIndicator.className = 'rn10-chatbot__typing';
+      typingIndicator.setAttribute('role', 'status');
+      typingIndicator.setAttribute('aria-label', 'Assistente digitando');
+      typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+      elements.messages.append(typingIndicator);
+      scrollToBottom();
+    } else if (!isTyping && typingIndicator) {
+      typingIndicator.remove();
+      typingIndicator = null;
+    }
   };
 
   const clearMessages = () => {
+    if (responseTimer) {
+      window.clearTimeout(responseTimer);
+      responseTimer = null;
+    }
+    setTyping(false);
     elements.messages.innerHTML = '';
   };
 
