@@ -359,46 +359,14 @@ window.RN10_CHATBOT_FLOWS = (() => {
   // --- Problema de pagamento --------------------------------------------------------
   const startPaymentProblem = () => {
     session.intent = 'payment_problem';
-    UI.addBotMessage('💳 Onde ocorreu o problema com o pagamento?');
+    UI.addBotMessage('💳 O problema foi em um pedido feito por aplicativo? Qual aplicativo você utilizou?');
     UI.addOptions(
       [
-        { label: '🏪 Loja', value: 'loja' },
-        { label: '📱 Aplicativo', value: 'app' },
-        { label: '⛽ Pista', value: 'pista' },
+        { label: 'iFood', value: 'ifood' },
+        { label: '99Food', value: 'food99' },
       ],
-      handlePaymentLocationChoice
+      handlePaymentAppChoice
     );
-  };
-
-  const handlePaymentLocationChoice = (value) => {
-    UI.addUserMessage(value === 'loja' ? '🏪 Loja' : value === 'app' ? '📱 Aplicativo' : '⛽ Pista');
-
-    if (value === 'app') {
-      UI.addBotMessage('📱 Qual aplicativo você utilizou?');
-      UI.addOptions(
-        [
-          { label: 'iFood', value: 'ifood' },
-          { label: '99Food', value: 'food99' },
-          { label: 'Outro', value: 'outro' },
-        ],
-        handlePaymentAppChoice
-      );
-      return;
-    }
-
-    if (!session.unit) {
-      UI.addBotMessage('Antes de continuar, me diga: em qual unidade isso aconteceu?');
-      DATA.getUnits().then((units) => {
-        UI.addOptions(unitOptions(units), (unitSlug) => {
-          session.unit = units.find((item) => item.slug === unitSlug);
-          UI.addUserMessage(UNIT_LABELS[unitSlug] || unitSlug);
-          routeManagerContact(value);
-        });
-      });
-      return;
-    }
-
-    routeManagerContact(value);
   };
 
   const handlePaymentAppChoice = (value) => {
