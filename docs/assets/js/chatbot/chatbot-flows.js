@@ -335,7 +335,21 @@ window.RN10_CHATBOT_FLOWS = (() => {
     }
 
     const email = CONFIG.unidadesEmail[unit.slug];
-    const areaLabel = area === 'loja' ? 'Loja' : 'Pista';
+    const isStore = area === 'loja';
+    const areaLabel = isStore ? 'Loja' : 'Pista';
+    const subject = isStore ? 'Problema Loja' : 'Problema Pista';
+    const body = [
+      `Olá! Gostaria de relatar um problema na ${isStore ? 'loja' : 'pista'}.`,
+      '',
+      'Nome:',
+      'Data e horário da ocorrência:',
+      `Unidade: ${unit.nome}`,
+      isStore ? 'Produto ou serviço relacionado:' : 'Serviço ou atendimento relacionado:',
+      'O que aconteceu? (conte os detalhes):',
+      'Como podemos ajudar?',
+      'Telefone ou e-mail para retorno:',
+    ].join('\n');
+
     if (!email) {
       console.error(`E-mail de atendimento não configurado para a unidade "${unit.slug}".`);
       UI.addBotMessage('Não foi possível preparar o e-mail para esta unidade. Tente novamente mais tarde.');
@@ -344,14 +358,10 @@ window.RN10_CHATBOT_FLOWS = (() => {
     }
 
     UI.addBotMessage(
-      `Vamos abrir seu e-mail para falar com a equipe de <strong>${areaLabel}</strong> da unidade <strong>${unit.nome}</strong>. Preencha nome, mensagem e envie.`
+      `Vou abrir um e-mail para a equipe de <strong>${areaLabel}</strong> da unidade <strong>${unit.nome}</strong>. O assunto e a unidade já estarão preenchidos; complete os campos sobre a ocorrência e seu contato antes de enviar.`
     );
     UI.addOptions([{ label: `✉️ Abrir e-mail para ${areaLabel}`, value: 'send' }], () => {
-      window.location.href = mailtoLink(
-        email,
-        `Contato Nota 10 - ${areaLabel} - ${unit.nome}`,
-        `Olá, meu nome é ___.\nUnidade: ${unit.nome}\nÁrea: ${areaLabel}\nMensagem: `
-      );
+      window.location.href = mailtoLink(email, subject, body);
       showHomeBar();
     });
   };
