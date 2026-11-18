@@ -47,8 +47,7 @@ window.RN10_CHATBOT_FLOWS = (() => {
   };
 
   const mailtoLink = (email, subject, body) => {
-    const params = new URLSearchParams({ subject, body });
-    return `mailto:${email}?${params.toString()}`;
+    return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const showMainMenu = () => {
