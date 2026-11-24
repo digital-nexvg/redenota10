@@ -53,7 +53,7 @@
       <section class="inner-hero">
         <div class="container reveal">
           <h1>Cadastre sua Frota</h1>
-          <p>Preencha os dados abaixo para iniciarmos o atendimento comercial da sua empresa.</p>
+          <p>Selecione a unidade para abrir um e-mail pré-preenchido. Complete seus dados no e-mail antes de enviá-lo.</p>
         </div>
       </section>
 
@@ -61,88 +61,38 @@
         <div class="container">
           <div class="section-head reveal">
             <span class="eyebrow">Formulário inicial</span>
-            <h2>Dados básicos da frota</h2>
-            <p>Este é um formulário base para início. Podemos evoluir com campos adicionais conforme sua operação.</p>
+            <h2>Escolha a unidade</h2>
+            <p>Os dados da frota serão preenchidos por você na mensagem de e-mail.</p>
           </div>
 
-          <form class="search-shell reveal" action="https://formspree.io/f/xljelona" method="post" data-fleet-form>
-            <input type="hidden" name="_subject" data-fleet-subject-input value="Cadastre sua Frota - Rede Nota 10">
+          <form class="search-shell reveal" data-fleet-form>
             <div class="form-grid">
-              <div class="form-field full">
-                <label for="assunto">Assunto</label>
-                <select id="assunto" name="assunto" data-fleet-subject required>
-                  <option value="" disabled selected>Selecione o assunto</option>
-                  <option value="novos-negocios">Novos negócios</option>
-                  <option value="comercial">Comercial</option>
-                  <option value="sugestoes">Sugestões</option>
+              <div class="form-field">
+                <label for="unidade">Posto</label>
+                <select id="unidade" name="unidade" data-fleet-unit required>
+                  <option value="" disabled selected>Selecione o posto</option>
+                  <option value="joinha" data-neighborhood="Campinho">Posto JOINHA</option>
+                  <option value="via-gas" data-neighborhood="Retiro São Joaquim">VIA GÁS</option>
+                  <option value="cremoneze" data-neighborhood="Campo Grande">Auto Posto Cremoneze</option>
+                  <option value="mega-engenho-novo" data-neighborhood="Engenho Novo">Posto Mega Engenho Novo</option>
+                  <option value="grajau" data-neighborhood="Grajaú">Posto de Gasolina Nota 10 do Grajaú</option>
+                  <option value="senna" data-neighborhood="Barra da Tijuca">Auto Posto Senna</option>
+                  <option value="cruzada-peninsula" data-neighborhood="Barra da Tijuca">Auto Posto Cruzada Península</option>
                 </select>
               </div>
-            </div>
-
-            <div class="form-grid" data-fleet-group="frota">
               <div class="form-field">
-                <label for="empresa">Nome da empresa</label>
-                <input id="empresa" name="empresa" type="text" required>
-              </div>
-              <div class="form-field">
-                <label for="responsavel">Responsável</label>
-                <input id="responsavel" name="responsavel" type="text" required>
-              </div>
-              <div class="form-field">
-                <label for="email">E-mail</label>
-                <input id="email" name="email" type="email" required>
-              </div>
-              <div class="form-field">
-                <label for="telefone">Telefone</label>
-                <input id="telefone" name="telefone" type="tel" required>
-              </div>
-              <div class="form-field">
-                <label for="qtd-veiculos">Quantidade de veículos</label>
-                <input id="qtd-veiculos" name="qtd-veiculos" type="number" min="1" placeholder="Ex.: 25" required>
-              </div>
-              <div class="form-field full">
-                <label for="observacoes">Observações</label>
-                <textarea id="observacoes" name="observacoes" rows="4" placeholder="Descreva necessidades da sua frota"></textarea>
+                <label for="bairro">Bairro</label>
+                <input id="bairro" type="text" data-fleet-neighborhood placeholder="Bairro do posto" readonly aria-live="polite">
               </div>
             </div>
-
-            <div class="form-grid" data-fleet-group="sugestao" hidden>
-              <div class="form-field">
-                <label for="sugestao-nome">Nome</label>
-                <input id="sugestao-nome" name="sugestao-nome" type="text" required>
-              </div>
-              <div class="form-field">
-                <label for="sugestao-contato">Contato</label>
-                <input id="sugestao-contato" name="sugestao-contato" type="text" placeholder="E-mail ou telefone" required>
-              </div>
-              <div class="form-field full">
-                <label for="sugestao-mensagem">Envie sua sugestão</label>
-                <textarea id="sugestao-mensagem" name="sugestao-mensagem" rows="4" placeholder="Conte sua sugestão" required></textarea>
-              </div>
-            </div>
-
-            <p class="form-status" data-fleet-status role="status" aria-live="polite" hidden></p>
 
             <div class="hero-actions" style="margin-top: 1rem;">
-              <button class="btn btn-primary" type="submit">Enviar cadastro</button>
+              <button class="btn btn-primary" type="submit">Prosseguir para envio de dados</button>
             </div>
           </form>
         </div>
       </section>
 
-      <section class="section" data-fleet-success hidden>
-        <div class="container">
-          <div class="cards-grid" style="grid-template-columns: 1fr; max-width: 760px; margin: 0 auto;">
-            <article class="card reveal" style="text-align: center;">
-              <h2>Recebemos seus dados</h2>
-              <p>Obrigado pelo contato! Nosso time comercial vai analisar as informações e entrar em contato em breve.</p>
-              <div class="hero-actions" style="justify-content: center; margin-top: 1.5rem;">
-                <a class="btn btn-primary" href="../index.html">Voltar para a Home</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
@@ -183,7 +133,7 @@
     <script src="../assets/js/menu.js?v=20260806a" defer></script>
     <script src="../assets/js/main.js?v=20260825a" defer></script>
     <script src="../assets/js/animations.js?v=20260806a" defer></script>
-    <script src="../assets/js/fleet-form.js?v=20260904b" defer></script>
+    <script src="../assets/js/fleet-form.js?v=20261124a" defer></script>
     <script src="../assets/js/chatbot/chatbot-config.js?v=20261111a" defer></script>
     <script src="../assets/js/chatbot/chatbot-data.js?v=20260901a" defer></script>
     <script src="../assets/js/chatbot/chatbot-nlu.js?v=20260901b" defer></script>
