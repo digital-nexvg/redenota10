@@ -6,6 +6,16 @@
   const neighborhoodInput = form.querySelector('[data-fleet-neighborhood]');
   if (!unitSelect || !neighborhoodInput) return;
 
+  const UNIT_EMAILS = {
+    joinha: 'posto.joinha@redenota10.com.br',
+    'via-gas': 'posto.viagas@redenota10.com.br',
+    cremoneze: 'posto.cremoneze@redenota10.com.br',
+    'mega-engenho-novo': 'posto.mega@redenota10.com.br',
+    grajau: 'posto.grajau@redenota10.com.br',
+    senna: 'posto.senna@redenota10.com.br',
+    'cruzada-peninsula': 'posto.peninsula@redenota10.com.br',
+  };
+
   const syncNeighborhood = () => {
     const selectedOption = unitSelect.selectedOptions[0];
     neighborhoodInput.value = selectedOption.dataset.neighborhood || '';
@@ -18,7 +28,12 @@
 
     const selectedOption = unitSelect.selectedOptions[0];
     const unitName = selectedOption.textContent.trim();
-    const recipient = `posto.${unitSelect.value}@redenota10.com.br`;
+    const recipient = UNIT_EMAILS[unitSelect.value];
+    if (!recipient) {
+      console.error(`E-mail de cadastro de frota não configurado para a unidade "${unitSelect.value}".`);
+      return;
+    }
+
     const subject = `Cadastro de frota - ${unitName}`;
     const body = [
       `Olá! Gostaria de cadastrar minha frota na unidade ${unitName}.`,
